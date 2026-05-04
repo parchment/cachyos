@@ -57,6 +57,7 @@ install_pkg atuin
 install_pkg zoxide
 install_pkg fzf
 install_pkg fd
+install_pkg jq
 
 # JS/TS toolchain
 install_pkg nodejs
