@@ -281,6 +281,11 @@ PanelWindow {
         return "█".repeat(filled) + "░".repeat(8 - filled)
     }
 
+    function barStrR(pct) {
+        const filled = Math.round(pct / 100 * 8)
+        return "░".repeat(8 - filled) + "█".repeat(filled)
+    }
+
     function tempColor(temp) {
         if (temp >= 80) return root.colRed
         if (temp >= 60) return root.colBlue
@@ -486,6 +491,7 @@ PanelWindow {
             Row {
                 anchors.right: parent.right
                 spacing: 6
+                topPadding: 6
                 Text {
                     text: root.netType
                     font.family:    root.fontCondensed
@@ -494,7 +500,7 @@ PanelWindow {
                 }
                 Text {
                     visible: root.netType === "WIFI"
-                    text: root.barStr(root.netSignal)
+                    text: root.barStrR(root.netSignal)
                     font.family:    root.fontNormal
                     font.pixelSize: 24
                     color: root.colGreen
@@ -520,7 +526,7 @@ PanelWindow {
                     color: root.colWhite
                 }
                 Text {
-                    text: root.barStr(root.batIntPct)
+                    text: root.barStrR(root.batIntPct)
                     font.family:   root.fontNormal
                     font.pixelSize: 24
                     color: root.batColor(root.batIntPct, root.batIntCharging)
@@ -546,7 +552,7 @@ PanelWindow {
                     color: root.colWhite
                 }
                 Text {
-                    text: root.barStr(root.batExtPct)
+                    text: root.barStrR(root.batExtPct)
                     font.family:   root.fontNormal
                     font.pixelSize: 24
                     color: root.batColor(root.batExtPct, root.batExtCharging)
