@@ -59,7 +59,6 @@ install_pkg fd
 
 # JS/TS toolchain
 install_pkg nodejs
-install_pkg npm
 
 # Rust toolchain
 for pkg in rust rust-src; do

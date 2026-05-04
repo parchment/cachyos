@@ -11,10 +11,8 @@ install_pkg yazi
 # Rust stable toolchain
 rustup default stable 2>/dev/null || true
 
-# pnpm via npm
-if ! command -v pnpm &>/dev/null; then
-    npm install -g pnpm
-fi
+# pnpm via pacman (available in Arch repos)
+install_pkg pnpm
 
 echo "--- Layer 3 verification ---"
 rustup show | grep "active toolchain"
