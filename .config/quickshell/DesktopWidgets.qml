@@ -144,22 +144,30 @@ PanelWindow {
         onRunningChanged: if (!running) { batExtProc.lineNum = 0; if (!running) {} }
     }
 
-    // Network — active connection name and signal strength
-    property string netName:   "—"
-    property int    netSignal: 0  // 0-100
+    // Network — connection type and signal strength
+    property string netType:   "NO CONNECTION"   // "WIFI", "ETH", or "NO CONNECTION"
+    property int    netSignal: 0     // 0-100, only meaningful for WiFi
 
     Process {
         id: netProc
-        // nmcli -t: machine-readable; fields: DEVICE,SIGNAL,ACTIVE,SSID
+        // Check for active ethernet first, then wifi
         command: ["bash", "-c",
-            "nmcli -t -f DEVICE,SIGNAL,ACTIVE,SSID device wifi list 2>/dev/null | grep ':yes:' | head -1"]
+            "eth=$(nmcli -t -f DEVICE,TYPE,STATE device | grep ':ethernet:connected' | head -1 | cut -d: -f1); " +
+            "if [ -n \"$eth\" ]; then echo \"ETH\"; exit; fi; " +
+            "wifi=$(nmcli -t -f DEVICE,SIGNAL,ACTIVE device wifi list 2>/dev/null | grep ':yes' | head -1); " +
+            "if [ -n \"$wifi\" ]; then echo \"WIFI:$(echo $wifi | cut -d: -f2)\"; fi"]
         running: false
         stdout: SplitParser {
             onRead: function(line) {
-                const parts = line.split(":")
-                if (parts.length >= 4) {
-                    root.netSignal = parseInt(parts[1]) || 0
-                    root.netName   = parts.slice(3).join(":").trim() || parts[0]
+                if (line.startsWith("WIFI:")) {
+                    root.netType   = "WIFI"
+                    root.netSignal = parseInt(line.slice(5)) || 0
+                } else if (line.trim() === "ETH") {
+                    root.netType   = "ETH"
+                    root.netSignal = 0
+                } else {
+                    root.netType   = "NO CONNECTION"
+                    root.netSignal = 0
                 }
             }
         }
@@ -319,20 +327,22 @@ PanelWindow {
                 anchors.right: parent.right
                 spacing: 6
                 Text {
-                    text: root.netName
-                    font.family:   root.fontCondensed
+                    text: root.netType
+                    font.family:    root.fontCondensed
                     font.pixelSize: 24
-                    color: root.colWhite
+                    color: root.netType === "NO CONNECTION" ? root.colRed : root.colWhite
                 }
                 Text {
+                    visible: root.netType === "WIFI"
                     text: root.barStr(root.netSignal)
-                    font.family:   root.fontNormal
+                    font.family:    root.fontNormal
                     font.pixelSize: 24
                     color: root.colGreen
                 }
                 Text {
+                    visible: root.netType === "WIFI"
                     text: " " + root.netSignal + "%"
-                    font.family:   root.fontNormal
+                    font.family:    root.fontNormal
                     font.pixelSize: 24
                     color: root.colWhite
                     width: 60
