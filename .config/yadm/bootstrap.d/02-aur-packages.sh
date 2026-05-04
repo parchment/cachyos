@@ -6,7 +6,7 @@ install_aur() {
 }
 
 # GTK dark theme (AUR)
-install_aur adw-gtk3
+install_aur adw-gtk3-git
 
 # Login manager — git version for Wayland stability
 install_aur sddm-git
