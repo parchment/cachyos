@@ -226,7 +226,6 @@ PanelWindow {
         if (pct <= 15) return root.colRed
         return root.colGreen
     }
-    }
 
     // ── UI ─────────────────────────────────────────────────────────────────
     Item {
