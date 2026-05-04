@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+BOOTSTRAP_DIR="$HOME/.config/yadm/bootstrap.d"
+
+echo "======================================="
+echo "Hyprland Dotfiles Bootstrap"
+echo "======================================="
+
+# Preflight — network required for package installs and font build
+if ! curl -fsSL --head "https://archlinux.org" &>/dev/null; then
+    echo "✗ Network unreachable — connect before running bootstrap"
+    exit 1
+fi
+
+sudo pacman -Syu --noconfirm
+
+for script in "$BOOTSTRAP_DIR"/[0-9]*.sh; do
+    [ -f "$script" ] || continue
+    echo ""
+    echo ">>> $(basename "$script")"
+    bash "$script"
+done
+
+echo ""
+echo "======================================="
+echo "Bootstrap complete. Run 'exec fish' to reload shell."
+echo "======================================="

@@ -1,0 +1,128 @@
+default.bg = "default"
+
+"ui.text.focus" = { fg = "yellow", modifiers = ["bold"] }
+"ui.menu" = { fg = "yellow", bg = "default" }
+"ui.menu.selected" = { fg = "base1", bg = "yellow" }
+"ui.popup" = { bg = "base1" }
+"ui.window" = { fg = "yellow", bg = "default" }
+"ui.help" = { fg = "base8", bg = "default" }
+"ui.virtual.whitespace" = "base5"
+"ui.virtual.ruler" = { bg = "base1" }
+"info" = "base8"
+"hint" = "base8"
+
+# Background color
+"ui.background" = { fg = "foreground" }
+
+# Status bars, panels, modals, autocompletion
+"ui.statusline" = { fg = "white", bg = "foreground" }
+"ui.statusline.inactive" = { fg = "white", bg = "default" }
+"ui.statusline.normal" = { fg = "black", bg = "blue" }
+"ui.statusline.insert" = { fg = "black", bg = "green" }
+"ui.statusline.select" = { fg = "black", bg = "purple" }
+"ui.virtual.wrap" = { fg = "base4" }
+"ui.virtual.indent-guide" = { fg = "#666666" }
+
+# Active line, highlighting
+"ui.selection" = { fg = "base2", bg = "purple" }
+"ui.cursor.primary" = { fg = "black", bg = "yellow" }
+"ui.cursor.match" = { bg = "foreground" }
+"ui.gutter.selected" = { fg = "base7", bg = "foreground" }
+"ui.linenr" = { fg = "#666666" }
+"ui.linenr.selected" = { fg = "yellow" }
+
+# Comments
+"comment" = { fg = "#666666", modifiers = ["italic"] }
+
+# Cursor, variables, constants, attributes, fields
+"attribute" = "blue"
+"variable" = "base8"
+"constant" = "orange"
+"variable.builtin" = "red"
+"constant.builtin" = "red"
+"namespace" = "base8"
+
+# base text, punctuation
+"ui.text" = { fg = "base8" }
+"punctuation" = "base6"
+"punctuation.delimiter" = "base6"
+"punctuation.bracket" = "yellow"
+"punctuation.special" = "orange"
+
+# classes, types, primitives
+"type" = "green"
+"type.builtin" = { fg = "red" }
+"label" = "base8"
+
+# declaration, methods, routines
+"constructor" = "blue"
+"function" = "green"
+"function.macro" = { fg = "blue" }
+"function.builtin" = { fg = "cyan" }
+
+# operator, tags, units, punctuations
+"operator" = "red"
+"variable.other.member" = "base8"
+
+# keywords, special
+"keyword" = { fg = "red" }
+"keyword.directive" = "blue"
+"variable.parameter" = "#f59762"
+
+# error
+"error" = "red"
+
+# annotations, decorators
+"special" = "#f59762"
+"module" = "#f59762"
+
+# warnings, escape characters, regex
+"warning" = "orange"
+"constant.character.escape" = { fg = "base8" }
+
+# strings
+"string" = "yellow"
+
+# integer, floating point
+"constant.numeric" = "purple"
+
+# vcs
+"diff.plus" = "green"
+"diff.delta" = "orange"
+"diff.minus" = "red"
+
+# make diagnostic underlined, to distinguish with selection text.
+"diagnostic.warning" = { underline = { color = "orange", style = "curl" } }
+"diagnostic.error" = { underline = { color = "red", style = "curl" } }
+"diagnostic.info" = { underline = { color = "base8", style = "curl" } }
+"diagnostic.hint" = { underline = { color = "base8", style = "curl" } }
+
+# markup highlight, no need for `markup.raw` and `markup.list`, make them to be default
+"markup.heading" = "green"
+"markup.bold" = { fg = "orange", modifiers = ["bold"] }
+"markup.italic" = { fg = "orange", modifiers = ["italic"] }
+"markup.strikethrough" = { modifiers = ["crossed_out"] }
+"markup.link.url" = { fg = "orange", modifiers = ["underlined"] }
+"markup.link.text" = "yellow"
+"markup.quote" = "green"
+
+[palette]
+# primary colors
+"red" = "red"
+"orange" = "yellow"
+"yellow" = "yellow"
+"green" = "green"
+"blue" = "blue"
+"purple" = "magenta"
+# base colors
+"base0" = "black"
+"base1" = "red"
+"base2" = "green"
+"base3" = "yellow"
+"base4" = "blue"
+"base5" = "magenta"
+"base6" = "cyan"
+"base7" = "white"
+"base8" = "#333333"
+# variants
+"base8x0c" = "#333333"

@@ -1,0 +1,97 @@
+# Helix Editor languages.toml configuration
+# Enabling auto-formatting for html, js, jsx, ts, tsx, json, toml, yaml/yml, rust, and go
+
+# HTML
+[[language]]
+name = "html"
+auto-format = true
+formatter = { command = "prettier", args = ["--parser", "html"] }
+
+# JavaScript and JSX
+[[language]]
+name = "javascript"
+auto-format = true
+formatter = { command = "prettier", args = ["--parser", "typescript"] }
+language-servers = ["typescript-language-server"]
+
+[[language]]
+name = "jsx"
+auto-format = true
+formatter = { command = "prettier", args = ["--parser", "typescript"] }
+language-servers = ["typescript-language-server"]
+
+# TypeScript and TSX
+[[language]]
+name = "typescript"
+auto-format = true
+formatter = { command = "prettier", args = ["--parser", "typescript"] }
+language-servers = ["typescript-language-server"]
+
+[[language]]
+name = "tsx"
+auto-format = true
+formatter = { command = "prettier", args = ["--parser", "typescript"] }
+language-servers = ["typescript-language-server"]
+
+# JSON
+[[language]]
+name = "json"
+auto-format = true
+formatter = { command = "prettier", args = ["--parser", "json"] }
+
+# TOML
+[[language]]
+name = "toml"
+auto-format = true
+formatter = { command = "taplo", args = ["format", "-"] }
+
+# YAML/YML
+[[language]]
+name = "yaml"
+auto-format = true
+formatter = { command = "prettier", args = ["--parser", "yaml"] }
+
+# Rust - using rustfmt (built into language server)
+[[language]]
+name = "rust"
+auto-format = true
+language-servers = ["rust-analyzer"]
+# rustfmt is handled by rust-analyzer language server,
+# so we don't need to specify a formatter here
+
+# Go - using gofumpt (built into gopls)
+[[language]]
+name = "go"
+auto-format = true
+# Go formatting is handled by gopls language server,
+# so we don't need to specify a formatter here
+
+# Alternative Formatter Options (commented out)
+
+# Deno for JavaScript/TypeScript (faster alternative to Prettier)
+# Uncomment these if you prefer to use Deno's formatter
+# [[language]]
+# name = "javascript"
+# auto-format = true
+# formatter = { command = "deno", args = ["fmt", "-", "--ext", "js"] }
+
+# [[language]]
+# name = "jsx"
+# auto-format = true
+# formatter = { command = "deno", args = ["fmt", "-", "--ext", "jsx"] }
+
+# [[language]]
+# name = "typescript"
+# auto-format = true
+# formatter = { command = "deno", args = ["fmt", "-", "--ext", "ts"] }
+
+# [[language]]
+# name = "tsx"
+# auto-format = true
+# formatter = { command = "deno", args = ["fmt", "-", "--ext", "tsx"] }
+
+# dprint for YAML (Rust-based alternative to Prettier)
+# [[language]]
+# name = "yaml"
+# auto-format = true
+# formatter = { command = "dprint", args = ["fmt", "--stdin", "yaml"] }

@@ -1,0 +1,40 @@
+command = /usr/bin/fish
+
+font-family = Iosevka Vixelated
+font-size = 13
+
+background = #000000
+foreground = #ffffff
+cursor-color = #ffffff
+
+# Black
+palette = 0=#000000
+# Red
+palette = 1=#ff6188
+# Green
+palette = 2=#a9dc76
+# Yellow
+palette = 3=#ffd866
+# Blue
+palette = 4=#78b4f3
+# Magenta
+palette = 5=#fc9867
+# Cyan
+palette = 6=#ab9df2
+# White
+palette = 7=#ffffff
+
+# Bright colors
+palette = 8=#000000
+palette = 9=#ff6188
+palette = 10=#a9dc76
+palette = 11=#ffd866
+palette = 12=#78b4f3
+palette = 13=#fc9867
+palette = 14=#ab9df2
+palette = 15=#ffffff
+
+window-padding-x = 15
+window-padding-y = 15
+background-opacity = 0.95
+window-decoration = false

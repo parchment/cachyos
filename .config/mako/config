@@ -1,0 +1,14 @@
+# ~/.config/mako/config
+default-timeout = 5000
+max-visible = 3
+layer = overlay
+anchor = top-right
+margin = 8
+padding = 8,12
+border-size = 1
+border-radius = 4
+font = Iosevka Vixelated 10
+
+[urgency=critical]
+default-timeout = 0
+border-color = #ff6188

@@ -1,0 +1,7 @@
+# Font build artefacts — TTFs are derived, not stored
+dist/
+*.ttf
+
+# macOS / Windows noise
+.DS_Store
+Desktop.ini
