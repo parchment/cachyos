@@ -234,7 +234,7 @@ PanelWindow {
                 id: clockTime
                 anchors.right: parent.right
                 font.family:   root.fontNormal
-                font.pixelSize: 36
+                font.pixelSize: 48
                 color: root.colWhite
             }
 
@@ -242,8 +242,8 @@ PanelWindow {
                 id: clockDate
                 anchors.right: parent.right
                 font.family:   root.fontNormal
-                font.pixelSize: 14
-                color: root.colDimWhite
+                font.pixelSize: 24
+                color: root.colWhite
             }
         }
 
@@ -262,21 +262,21 @@ PanelWindow {
                 Text {
                     text: "CPU"
                     font.family:   root.fontCondensed
-                    font.pixelSize: 12
-                    color: root.colDimWhite
-                    width: 32
+                    font.pixelSize: 24
+                    color: root.colWhite
+                    width: 60
                 }
                 Text {
                     text: root.barStr(root.cpuUsage)
                     font.family:   root.fontNormal
-                    font.pixelSize: 12
+                    font.pixelSize: 24
                     color: root.colBlue
                 }
                 Text {
                     text: " " + root.cpuUsage + "%"
                     font.family:   root.fontNormal
-                    font.pixelSize: 12
-                    color: root.colDimWhite
+                    font.pixelSize: 24
+                    color: root.colWhite
                 }
             }
 
@@ -286,21 +286,21 @@ PanelWindow {
                 Text {
                     text: "RAM"
                     font.family:   root.fontCondensed
-                    font.pixelSize: 12
-                    color: root.colDimWhite
-                    width: 32
+                    font.pixelSize: 24
+                    color: root.colWhite
+                    width: 60
                 }
                 Text {
                     text: root.barStr(root.ramUsage)
                     font.family:   root.fontNormal
-                    font.pixelSize: 12
+                    font.pixelSize: 24
                     color: root.colCyan
                 }
                 Text {
                     text: " " + root.ramUsage + "%"
                     font.family:   root.fontNormal
-                    font.pixelSize: 12
-                    color: root.colDimWhite
+                    font.pixelSize: 24
+                    color: root.colWhite
                 }
             }
         }
@@ -314,36 +314,28 @@ PanelWindow {
             }
             spacing: 4
 
-            // Tailscale
-            Text {
-                anchors.right: parent.right
-                text: "◈ tailscale"
-                font.family:   root.fontCondensed
-                font.pixelSize: 12
-                color: root.tailscaleUp ? root.colGreen : root.colRed
-            }
-
             // Network
             Row {
                 anchors.right: parent.right
                 spacing: 6
                 Text {
-                    text: "▼ " + root.netName
+                    text: root.netName
                     font.family:   root.fontCondensed
-                    font.pixelSize: 12
+                    font.pixelSize: 24
                     color: root.colWhite
                 }
                 Text {
                     text: root.barStr(root.netSignal)
                     font.family:   root.fontNormal
-                    font.pixelSize: 12
+                    font.pixelSize: 24
                     color: root.colGreen
                 }
                 Text {
                     text: " " + root.netSignal + "%"
                     font.family:   root.fontNormal
-                    font.pixelSize: 12
-                    color: root.colDimWhite
+                    font.pixelSize: 24
+                    color: root.colWhite
+                    width: 60
                 }
             }
 
@@ -352,22 +344,23 @@ PanelWindow {
                 anchors.right: parent.right
                 spacing: 6
                 Text {
-                    text: "▮ INT"
+                    text: "INT"
                     font.family:   root.fontCondensed
-                    font.pixelSize: 12
-                    color: root.colDimWhite
+                    font.pixelSize: 24
+                    color: root.colWhite
                 }
                 Text {
                     text: root.barStr(root.batIntPct)
                     font.family:   root.fontNormal
-                    font.pixelSize: 12
+                    font.pixelSize: 24
                     color: root.batColor(root.batIntPct, root.batIntCharging)
                 }
                 Text {
                     text: " " + root.batIntPct + "%"
                     font.family:   root.fontNormal
-                    font.pixelSize: 12
-                    color: root.colDimWhite
+                    font.pixelSize: 24
+                    color: root.colWhite
+                    width: 60
                 }
             }
 
@@ -377,22 +370,23 @@ PanelWindow {
                 spacing: 6
                 visible: root.batExtPresent
                 Text {
-                    text: "▮ EXT"
+                    text: "EXT"
                     font.family:   root.fontCondensed
-                    font.pixelSize: 12
-                    color: root.colDimWhite
+                    font.pixelSize: 24
+                    color: root.colWhite
                 }
                 Text {
                     text: root.barStr(root.batExtPct)
                     font.family:   root.fontNormal
-                    font.pixelSize: 12
+                    font.pixelSize: 24
                     color: root.batColor(root.batExtPct, root.batExtCharging)
                 }
                 Text {
                     text: " " + root.batExtPct + "%"
                     font.family:   root.fontNormal
-                    font.pixelSize: 12
-                    color: root.colDimWhite
+                    font.pixelSize: 24
+                    color: root.colWhite
+                    width: 60
                 }
             }
         }
