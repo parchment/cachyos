@@ -25,13 +25,13 @@ palette = 6=#ab9df2
 palette = 7=#ffffff
 
 # Bright colors
-palette = 8=#000000
-palette = 9=#ff6188
-palette = 10=#a9dc76
-palette = 11=#ffd866
-palette = 12=#78b4f3
-palette = 13=#fc9867
-palette = 14=#ab9df2
+palette = 8=#1a1a1a
+palette = 9=#ff92a8
+palette = 10=#c3f09a
+palette = 11=#ffe599
+palette = 12=#a8d0ff
+palette = 13=#ffb899
+palette = 14=#c8bdff
 palette = 15=#ffffff
 
 window-padding-x = 15

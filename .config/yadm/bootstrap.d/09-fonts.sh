@@ -80,7 +80,7 @@ mkdir -p "$FONT_DIR"
 cp -v dist/IosevkaVixelated/TTF/*.ttf "$FONT_DIR/"
 fc-cache -fv "$FONT_DIR"
 
-# Install system-wide so SDDM (runs as sddm user) can use the font
+# Install system-wide — required for SDDM (runs as sddm user, cannot see ~/.local)
 sudo mkdir -p "$SYSTEM_FONT_DIR"
 sudo cp dist/IosevkaVixelated/TTF/*.ttf "$SYSTEM_FONT_DIR/"
 sudo fc-cache -f "$SYSTEM_FONT_DIR"

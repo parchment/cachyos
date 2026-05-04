@@ -37,6 +37,9 @@ install_pkg playerctl
 # Brightness
 install_pkg brightnessctl
 
+# Browser
+install_pkg firefox
+
 # Network
 install_pkg networkmanager
 

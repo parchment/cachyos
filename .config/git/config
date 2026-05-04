@@ -163,9 +163,6 @@
 	wp = "show -p"
 	wr = "show -p --no-color"
 
-[core]
-	excludesfile = "~/.gitignore_global"
-
 [credential]
 	helper = /usr/lib/git-core/git-credential-libsecret
 

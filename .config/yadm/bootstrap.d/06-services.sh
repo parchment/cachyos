@@ -56,7 +56,9 @@ EOF
     sudo systemctl restart tlp
 fi
 
-# Tailscale — uses the fish function (idempotent: enable + up --ssh)
+# Firefox must be installed before this point — tailscale up opens a browser auth URL.
+# This is guaranteed by 01-packages.sh installing firefox.
+# Running on bare TTY without a browser will stall here.
 fish -c setup_tailscale
 
 echo ""
