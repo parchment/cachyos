@@ -9,7 +9,7 @@
 //   │  CPU  ████████░░░░  52%   ◈ tailscale         │
 //   │  RAM  █████░░░░░░░  31%   ▼ wlan0  ████  87%  │
 //   │  TMP  ██████░░░░░░  72°C  ▮ INT  ████████ 78% │
-//   │                           ▮ EXT  ████░░░░ 43% │
+//   │  SWP  ██░░░░░░░░░░   8%   ▮ EXT  ████░░░░ 43% │
 //   └───────────────────────────────────────────────┘
 
 import QtQuick
@@ -79,23 +79,33 @@ PanelWindow {
     }
 
     // RAM usage — read /proc/meminfo
-    property real ramUsage: 0
+    property real ramUsage:  0
+    property real swapUsage: 0
 
     Process {
         id: ramProc
         command: ["cat", "/proc/meminfo"]
         running: false
-        property int memTotal: 0
-        property int memAvail: 0
+        property int memTotal:  0
+        property int memAvail:  0
+        property int swapTotal: 0
         stdout: SplitParser {
             onRead: function(line) {
                 const m = line.match(/^(\w+):\s+(\d+)/)
                 if (!m) return
-                if (m[1] === "MemTotal")     ramProc.memTotal = parseInt(m[2])
+                if (m[1] === "MemTotal")     ramProc.memTotal  = parseInt(m[2])
                 if (m[1] === "MemAvailable") {
                     ramProc.memAvail = parseInt(m[2])
                     if (ramProc.memTotal > 0)
                         root.ramUsage = Math.round((1 - ramProc.memAvail / ramProc.memTotal) * 100)
+                }
+                if (m[1] === "SwapTotal")    ramProc.swapTotal = parseInt(m[2])
+                if (m[1] === "SwapFree") {
+                    const swapFree = parseInt(m[2])
+                    if (ramProc.swapTotal > 0)
+                        root.swapUsage = Math.round((1 - swapFree / ramProc.swapTotal) * 100)
+                    else
+                        root.swapUsage = 0
                 }
             }
         }
@@ -357,6 +367,31 @@ PanelWindow {
                 }
                 Text {
                     text: " " + root.cpuTemp + "°C"
+                    font.family:   root.fontNormal
+                    font.pixelSize: 24
+                    color: root.colWhite
+                }
+            }
+
+            // SWP row (hidden when no swap)
+            Row {
+                spacing: 6
+                visible: root.swapUsage > 0
+                Text {
+                    text: "SWP"
+                    font.family:   root.fontCondensed
+                    font.pixelSize: 24
+                    color: root.colWhite
+                    width: 60
+                }
+                Text {
+                    text: root.barStr(root.swapUsage)
+                    font.family:   root.fontNormal
+                    font.pixelSize: 24
+                    color: root.colRed
+                }
+                Text {
+                    text: " " + root.swapUsage + "%"
                     font.family:   root.fontNormal
                     font.pixelSize: 24
                     color: root.colWhite
