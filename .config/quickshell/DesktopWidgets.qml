@@ -8,7 +8,7 @@
 //   │                                               │
 //   │  CPU  ████████░░░░  52%   ◈ tailscale         │
 //   │  RAM  █████░░░░░░░  31%   ▼ wlan0  ████  87%  │
-//   │                           ▮ INT  ████████ 78% │
+//   │  TMP  ██████░░░░░░  72°C  ▮ INT  ████████ 78% │
 //   │                           ▮ EXT  ████░░░░ 43% │
 //   └───────────────────────────────────────────────┘
 
@@ -173,6 +173,23 @@ PanelWindow {
         }
     }
 
+    // CPU temperature — read from coretemp hwmon, fallback to thermal_zone0
+    property real cpuTemp: 0
+
+    Process {
+        id: cpuTempProc
+        command: ["bash", "-c",
+            "f=$(ls /sys/devices/platform/coretemp.0/hwmon/hwmon*/temp1_input 2>/dev/null | head -1); " +
+            "[ -n \"$f\" ] && cat \"$f\" || cat /sys/class/thermal/thermal_zone0/temp"]
+        running: false
+        stdout: SplitParser {
+            onRead: function(line) {
+                const millideg = parseInt(line)
+                if (!isNaN(millideg)) root.cpuTemp = Math.round(millideg / 1000)
+            }
+        }
+    }
+
     // Tailscale
     property bool tailscaleUp: false
 
@@ -194,9 +211,10 @@ PanelWindow {
         repeat: true
         triggeredOnStart: true
         onTriggered: {
-            cpuProc.running  = true
-            ramProc.running  = true
-            batIntProc.running = true
+            cpuProc.running     = true
+            ramProc.running     = true
+            cpuTempProc.running = true
+            batIntProc.running  = true
             batExtProc.running = true
             netProc.running  = true
             tsProc.running   = true
@@ -219,6 +237,12 @@ PanelWindow {
     function barStr(pct) {
         const filled = Math.round(pct / 100 * 8)
         return "█".repeat(filled) + "░".repeat(8 - filled)
+    }
+
+    function tempColor(temp) {
+        if (temp >= 80) return root.colRed
+        if (temp >= 60) return root.colBlue
+        return root.colGreen
     }
 
     function batColor(pct, charging) {
@@ -308,6 +332,30 @@ PanelWindow {
                 }
                 Text {
                     text: " " + root.ramUsage + "%"
+                    font.family:   root.fontNormal
+                    font.pixelSize: 24
+                    color: root.colWhite
+                }
+            }
+
+            // TMP row
+            Row {
+                spacing: 6
+                Text {
+                    text: "TMP"
+                    font.family:   root.fontCondensed
+                    font.pixelSize: 24
+                    color: root.colWhite
+                    width: 60
+                }
+                Text {
+                    text: root.barStr(root.cpuTemp)
+                    font.family:   root.fontNormal
+                    font.pixelSize: 24
+                    color: root.tempColor(root.cpuTemp)
+                }
+                Text {
+                    text: " " + root.cpuTemp + "°C"
                     font.family:   root.fontNormal
                     font.pixelSize: 24
                     color: root.colWhite
