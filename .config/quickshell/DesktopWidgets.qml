@@ -8,8 +8,10 @@
 //   │                                               │
 //   │  CPU  ████████░░░░  52%   ◈ tailscale         │
 //   │  RAM  █████░░░░░░░  31%   ▼ wlan0  ████  87%  │
-//   │  TMP  ██████░░░░░░  72°C  ▮ INT  ████████ 78% │
-//   │  SWP  ██░░░░░░░░░░   8%   ▮ EXT  ████░░░░ 43% │
+//   │  TMP  ██████░░░░░░  72°C  ▲ 1.2 MB/s          │
+//   │  SWP  ██░░░░░░░░░░   8%   ▼ 340 KB/s           │
+//   │                           ▮ INT  ████████ 78% │
+//   │                           ▮ EXT  ████░░░░ 43% │
 //   └───────────────────────────────────────────────┘
 
 import QtQuick
@@ -155,9 +157,12 @@ PanelWindow {
         onRunningChanged: if (!running) batExtProc.lineNum = 0
     }
 
-    // Network — connection type and signal strength
+    // Network — connection type, signal strength, and throughput
     property string netType:   "NO CONNECTION"   // "WIFI", "ETH", or "NO CONNECTION"
     property int    netSignal: 0     // 0-100, only meaningful for WiFi
+    property real   netRxRate: 0     // bytes/sec
+    property real   netTxRate: 0     // bytes/sec
+    property var    _netPrev:  null  // { rx, tx, time }
 
     Process {
         id: netProc
@@ -180,6 +185,31 @@ PanelWindow {
                     root.netType   = "NO CONNECTION"
                     root.netSignal = 0
                 }
+            }
+        }
+    }
+
+    // Network throughput — sum all non-loopback interfaces from /proc/net/dev
+    Process {
+        id: netSpeedProc
+        command: ["bash", "-c",
+            "awk 'NR>2 && !/lo:/ {gsub(/:/, \" \"); rx+=$2; tx+=$10} END {print rx, tx}' /proc/net/dev"]
+        running: false
+        stdout: SplitParser {
+            onRead: function(line) {
+                const parts = line.trim().split(/\s+/)
+                if (parts.length < 2) return
+                const rx  = parseFloat(parts[0])
+                const tx  = parseFloat(parts[1])
+                const now = Date.now()
+                if (root._netPrev) {
+                    const dt = (now - root._netPrev.time) / 1000
+                    if (dt > 0) {
+                        root.netRxRate = (rx - root._netPrev.rx) / dt
+                        root.netTxRate = (tx - root._netPrev.tx) / dt
+                    }
+                }
+                root._netPrev = { rx: rx, tx: tx, time: now }
             }
         }
     }
@@ -227,8 +257,9 @@ PanelWindow {
             cpuTempProc.running = true
             batIntProc.running  = true
             batExtProc.running = true
-            netProc.running  = true
-            tsProc.running   = true
+            netProc.running      = true
+            netSpeedProc.running = true
+            tsProc.running       = true
         }
     }
 
@@ -254,6 +285,12 @@ PanelWindow {
         if (temp >= 80) return root.colRed
         if (temp >= 60) return root.colBlue
         return root.colGreen
+    }
+
+    function netRateStr(bps) {
+        if (bps >= 1048576) return (bps / 1048576).toFixed(1) + " MB/s"
+        if (bps >= 1024)    return Math.round(bps / 1024)     + " KB/s"
+        return Math.round(bps) + " B/s"
     }
 
     function batColor(pct, charging) {
@@ -432,6 +469,42 @@ PanelWindow {
                     font.pixelSize: 24
                     color: root.colWhite
                     width: 60
+                }
+            }
+
+            // Network throughput (hidden when no connection)
+            Row {
+                anchors.right: parent.right
+                spacing: 6
+                visible: root.netType !== "NO CONNECTION"
+                Text {
+                    text: "🡑"
+                    font.family:    root.fontNormal
+                    font.pixelSize: 24
+                    color: root.colBlue
+                }
+                Text {
+                    text: root.netRateStr(root.netTxRate)
+                    font.family:    root.fontCondensed
+                    font.pixelSize: 24
+                    color: root.colWhite
+                }
+            }
+            Row {
+                anchors.right: parent.right
+                spacing: 6
+                visible: root.netType !== "NO CONNECTION"
+                Text {
+                    text: "🡓"
+                    font.family:    root.fontNormal
+                    font.pixelSize: 24
+                    color: root.colGreen
+                }
+                Text {
+                    text: root.netRateStr(root.netRxRate)
+                    font.family:    root.fontCondensed
+                    font.pixelSize: 24
+                    color: root.colWhite
                 }
             }
 
