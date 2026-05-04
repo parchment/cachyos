@@ -17,6 +17,9 @@ install_aur bluetuith
 # Screenshot
 install_aur grimblast-git
 
+# Font build dependencies
+install_aur ttfautohint
+
 echo "--- Layer 2 verification ---"
 paru -Q phinger-cursors
 echo "--- Layer 2 complete ---"
