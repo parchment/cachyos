@@ -44,7 +44,11 @@ install_ttfs() {
 # ── Fast path: prebuilt TTFs shipped in the repo ────────────────────────────
 if ls "$PREBUILT_DIR"/*.ttf &>/dev/null; then
     echo "→ Installing prebuilt $FONT_NAME"
-    install_ttfs "$PREBUILT_DIR"
+    fc-cache -fv "$FONT_DIR"
+
+    sudo mkdir -p "$SYSTEM_FONT_DIR"
+    sudo cp "$PREBUILT_DIR"/*.ttf "$SYSTEM_FONT_DIR/"
+    sudo fc-cache -f "$SYSTEM_FONT_DIR"
     echo "→ $FONT_NAME installed from prebuilts"
 
 # ── Slow path: build from source ────────────────────────────────────────────
