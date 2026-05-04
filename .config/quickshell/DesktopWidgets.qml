@@ -467,14 +467,8 @@ PanelWindow {
                     font.pixelSize: 24
                     color: root.colWhite
                 }
-            }
-
-            Row {
-                anchors.right: parent.right
-                spacing: 6
-                visible: root.netType !== "NO CONNECTION"
                 Text {
-                    text: "🡓"
+                    text: "  🡓"
                     font.family:    root.fontNormal
                     font.pixelSize: 24
                     color: root.colGreen
