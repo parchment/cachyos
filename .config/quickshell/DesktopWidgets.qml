@@ -445,6 +445,43 @@ PanelWindow {
             }
             spacing: 4
 
+            // Network throughput (hidden when no connection)
+            Row {
+                anchors.right: parent.right
+                spacing: 6
+                visible: root.netType !== "NO CONNECTION"
+                Text {
+                    text: "🡑"
+                    font.family:    root.fontNormal
+                    font.pixelSize: 24
+                    color: root.colBlue
+                }
+                Text {
+                    text: root.netRateStr(root.netTxRate)
+                    font.family:    root.fontCondensed
+                    font.pixelSize: 24
+                    color: root.colWhite
+                }
+            }
+
+            Row {
+                anchors.right: parent.right
+                spacing: 6
+                visible: root.netType !== "NO CONNECTION"
+                Text {
+                    text: "🡓"
+                    font.family:    root.fontNormal
+                    font.pixelSize: 24
+                    color: root.colGreen
+                }
+                Text {
+                    text: root.netRateStr(root.netRxRate)
+                    font.family:    root.fontCondensed
+                    font.pixelSize: 24
+                    color: root.colWhite
+                }
+            }
+
             // Network
             Row {
                 anchors.right: parent.right
@@ -469,42 +506,6 @@ PanelWindow {
                     font.pixelSize: 24
                     color: root.colWhite
                     width: 60
-                }
-            }
-
-            // Network throughput (hidden when no connection)
-            Row {
-                anchors.right: parent.right
-                spacing: 6
-                visible: root.netType !== "NO CONNECTION"
-                Text {
-                    text: "🡑"
-                    font.family:    root.fontNormal
-                    font.pixelSize: 24
-                    color: root.colBlue
-                }
-                Text {
-                    text: root.netRateStr(root.netTxRate)
-                    font.family:    root.fontCondensed
-                    font.pixelSize: 24
-                    color: root.colWhite
-                }
-            }
-            Row {
-                anchors.right: parent.right
-                spacing: 6
-                visible: root.netType !== "NO CONNECTION"
-                Text {
-                    text: "🡓"
-                    font.family:    root.fontNormal
-                    font.pixelSize: 24
-                    color: root.colGreen
-                }
-                Text {
-                    text: root.netRateStr(root.netRxRate)
-                    font.family:    root.fontCondensed
-                    font.pixelSize: 24
-                    color: root.colWhite
                 }
             }
 
