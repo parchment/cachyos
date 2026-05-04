@@ -102,6 +102,7 @@ PanelWindow {
     }
 
     // Battery (INT = BAT0, EXT = BAT1)
+    // "charging" = AC adapter online; covers "Charging", "Not charging" (TLP threshold), and "Full"
     property int  batIntPct:      0
     property bool batIntCharging: false
     property int  batExtPct:      0
@@ -111,15 +112,15 @@ PanelWindow {
     Process {
         id: batIntProc
         command: ["bash", "-c",
-            "cat /sys/class/power_supply/BAT0/capacity 2>/dev/null; " +
-            "cat /sys/class/power_supply/BAT0/status 2>/dev/null"]
+            "cat /sys/class/power_supply/AC/online 2>/dev/null; " +
+            "cat /sys/class/power_supply/BAT0/capacity 2>/dev/null"]
         running: false
         property int lineNum: 0
         stdout: SplitParser {
             onRead: function(line) {
                 batIntProc.lineNum++
-                if (batIntProc.lineNum === 1) root.batIntPct = parseInt(line) || 0
-                if (batIntProc.lineNum === 2) root.batIntCharging = (line.trim() === "Charging")
+                if (batIntProc.lineNum === 1) root.batIntCharging = (line.trim() === "1")
+                if (batIntProc.lineNum === 2) root.batIntPct = parseInt(line) || 0
             }
         }
         onRunningChanged: if (!running) batIntProc.lineNum = 0
@@ -128,20 +129,20 @@ PanelWindow {
     Process {
         id: batExtProc
         command: ["bash", "-c",
+            "cat /sys/class/power_supply/AC/online 2>/dev/null; " +
             "[ -d /sys/class/power_supply/BAT1 ] && echo present; " +
-            "cat /sys/class/power_supply/BAT1/capacity 2>/dev/null; " +
-            "cat /sys/class/power_supply/BAT1/status 2>/dev/null"]
+            "cat /sys/class/power_supply/BAT1/capacity 2>/dev/null"]
         running: false
         property int lineNum: 0
         stdout: SplitParser {
             onRead: function(line) {
                 batExtProc.lineNum++
-                if (batExtProc.lineNum === 1 && line.trim() === "present") root.batExtPresent = true
-                if (batExtProc.lineNum === 2) root.batExtPct = parseInt(line) || 0
-                if (batExtProc.lineNum === 3) root.batExtCharging = (line.trim() === "Charging")
+                if (batExtProc.lineNum === 1) root.batExtCharging = (line.trim() === "1")
+                if (batExtProc.lineNum === 2 && line.trim() === "present") root.batExtPresent = true
+                if (batExtProc.lineNum === 3) root.batExtPct = parseInt(line) || 0
             }
         }
-        onRunningChanged: if (!running) { batExtProc.lineNum = 0; if (!running) {} }
+        onRunningChanged: if (!running) batExtProc.lineNum = 0
     }
 
     // Network — connection type and signal strength
