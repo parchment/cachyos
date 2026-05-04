@@ -16,6 +16,7 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Io
+import Quickshell.Wayland
 
 PanelWindow {
     id: root
@@ -26,8 +27,8 @@ PanelWindow {
         right: true
         bottom: true
     }
-    layer: "background"
-    exclusiveZone: -1
+    WlrLayershell.layer: WlrLayer.Background
+    WlrLayershell.exclusiveZone: -1
     color: "transparent"
 
     // ── Palette ────────────────────────────────────────────────────────────
