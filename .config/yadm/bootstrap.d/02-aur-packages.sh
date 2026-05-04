@@ -5,9 +5,6 @@ install_aur() {
     paru -Q "$1" &>/dev/null || paru -S --noconfirm --needed "$1"
 }
 
-# GTK dark theme (AUR)
-install_aur adw-gtk3-git
-
 # Login manager — git version for Wayland stability
 install_aur sddm-git
 

@@ -72,10 +72,6 @@ No app launcher. No status bar. No dock. No file manager GUI. No Bluetooth GUI.
 ├── git/
 │   ├── config                   # Aliases, GPG signing, LFS, libsecret credential helper
 │   └── ignore                   # Global gitignore (auto-discovered by git)
-├── gtk-3.0/
-│   └── settings.ini
-├── gtk-4.0/
-│   └── settings.ini
 ├── helix/
 │   ├── config.toml
 │   ├── languages.toml
@@ -129,7 +125,7 @@ Fresh machine setup. Run after `yadm clone`.
 
 ```
 00-aur.sh       Installs paru from AUR via makepkg — prerequisite for all AUR installs
-01-packages.sh  pacman packages: compositor stack, terminal, editor, audio, network, theming
+01-packages.sh  pacman packages: compositor stack, terminal, editor, audio, network
 02-aur-packages AUR packages: sddm-git, phinger-cursors, quickshell, bluetuith, grimblast-git
 03-tools.sh     lazygit, yazi, rustup stable, pnpm via npm
 04-shell.sh     Sets fish as default shell, installs fisher + plugins from fish_plugins manifest
@@ -314,7 +310,7 @@ dim-white   #444444   labels, percentages, date line
 - **Condensed** — widget labels (CPU, RAM, INT, EXT) where horizontal space is tight
 - **Italic** — available, used sparingly
 
-Used system-wide: Ghostty, Helix, mako, hyprlock, Quickshell widgets, GTK/Qt apps, SDDM.
+Used system-wide: Ghostty, Helix, mako, hyprlock, Quickshell widgets, SDDM.
 
 Build plan: `~/.config/iosevka/private-build-plans.toml` — tracked in yadm.
 TTFs are derived artefacts, built during bootstrap, not stored in the repo.
@@ -570,11 +566,6 @@ workspace = 2, monitor:HDMI-A-1
 Left unpinned by default — dynamic is more flexible for a laptop.
 
 ---
-
-## GTK + Qt Theming
-
-GTK 3 and 4: `adw-gtk3-dark`, Papirus-Dark icons, phinger-cursors-light, Iosevka Vixelated 11pt.
-Qt: `qt6ct` with dark palette matching the system colours. `QT_QPA_PLATFORMTHEME=qt6ct` set in `hyprland.conf`.
 
 ---
 

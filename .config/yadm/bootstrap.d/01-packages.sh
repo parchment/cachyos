@@ -43,10 +43,6 @@ install_pkg firefox
 # Network
 install_pkg networkmanager
 
-# GTK/Qt theming
-install_pkg papirus-icon-theme
-install_pkg qt6ct
-
 # Power management
 install_pkg tlp
 install_pkg tlp-rdw
