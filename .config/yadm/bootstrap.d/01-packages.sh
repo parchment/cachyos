@@ -40,6 +40,9 @@ install_pkg brightnessctl
 # Browser
 install_pkg firefox
 
+# Login manager
+install_pkg sddm
+
 # Network
 install_pkg networkmanager
 
