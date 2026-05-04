@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+no#!/usr/bin/env bash
 set -euo pipefail
 
 install_aur() {
@@ -6,6 +6,9 @@ install_aur() {
 }
 
 # Cursor
+install_aur phinger-cursors
+
+# Quickshell
 install_aur quickshell
 
 # Bluetooth TUI
