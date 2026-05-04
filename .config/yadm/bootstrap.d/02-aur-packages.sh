@@ -6,6 +6,8 @@ install_aur() {
 }
 
 # Login manager — git version for Wayland stability
+# sddm (stable) must be removed first; sddm-git conflicts with it
+sudo pacman -Rdd --noconfirm sddm 2>/dev/null || true
 install_aur sddm-git
 
 # Cursor
