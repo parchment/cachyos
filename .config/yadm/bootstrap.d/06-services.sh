@@ -12,7 +12,12 @@ enable_user_svc() {
 # System services
 enable_svc NetworkManager
 enable_svc bluetooth
+
+# TLP conflicts with power-profiles-daemon; mask it first
+sudo systemctl disable --now power-profiles-daemon 2>/dev/null || true
+sudo systemctl mask power-profiles-daemon 2>/dev/null || true
 enable_svc tlp
+
 enable_svc tailscaled
 
 # Pipewire via systemd user services
