@@ -44,7 +44,6 @@ install_pkg firefox
 install_pkg networkmanager
 
 # GTK/Qt theming
-install_pkg adw-gtk3
 install_pkg papirus-icon-theme
 install_pkg qt6ct
 
