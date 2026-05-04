@@ -61,6 +61,7 @@ install_pkg fd
 # JS/TS toolchain
 install_pkg nodejs
 install_pkg npm
+install_pkg ttfautohint
 
 # Rust toolchain
 for pkg in rust rust-src; do
