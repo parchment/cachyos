@@ -222,7 +222,10 @@ PanelWindow {
     }
 
     function batColor(pct, charging) {
-        return (pct <= 15 && !charging) ? root.colRed : root.colGreen
+        if (charging)  return root.colBlue
+        if (pct <= 15) return root.colRed
+        return root.colGreen
+    }
     }
 
     // ── UI ─────────────────────────────────────────────────────────────────
