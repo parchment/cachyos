@@ -1,4 +1,4 @@
-no#!/usr/bin/env bash
+#!/usr/bin/env bash
 set -euo pipefail
 
 install_aur() {

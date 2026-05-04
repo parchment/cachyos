@@ -45,6 +45,7 @@ install_pkg sddm
 
 # Network
 install_pkg networkmanager
+install_pkg tailscale
 
 # Power management
 install_pkg tlp
