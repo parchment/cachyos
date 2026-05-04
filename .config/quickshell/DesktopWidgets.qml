@@ -29,7 +29,7 @@ PanelWindow {
     }
     WlrLayershell.layer: WlrLayer.Background
     WlrLayershell.exclusiveZone: -1
-    color: "transparent"
+    color: "#000000"
 
     // ── Palette ────────────────────────────────────────────────────────────
     readonly property string colWhite:      "#ffffff"
