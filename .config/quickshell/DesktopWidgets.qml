@@ -268,7 +268,7 @@ PanelWindow {
         command: ["bash", "-c",
             "df -BG -x tmpfs -x devtmpfs -x squashfs -x efivarfs 2>/dev/null | " +
             "awk 'NR>1 { sz=$2; gsub(/G/,\"\",sz); avail=$4; gsub(/G/,\"\",avail); " +
-            "pct=$5; gsub(/%/,\"\",pct); if (sz+0>1) print $6, pct+0, avail+0 }'"]
+            "pct=$5; gsub(/%/,\"\",pct); if (sz+0>1 && !seen[$1]++) print $6, pct+0, avail+0 }'"]
         running: false
         property var _lines: []
         stdout: SplitParser {
