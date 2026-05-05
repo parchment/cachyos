@@ -329,7 +329,7 @@ PanelWindow {
     }
 
     function splitBar(txRate, rxRate, txEma, rxEma) {
-        const half    = 4
+        const half    = 6
         const ceiling = 3.0
         const txPct = txEma > 0 ? Math.min(1, txRate / (txEma * ceiling)) : 0
         const rxPct = rxEma > 0 ? Math.min(1, rxRate / (rxEma * ceiling)) : 0
