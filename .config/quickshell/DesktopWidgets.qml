@@ -210,7 +210,7 @@ PanelWindow {
                         root.netTxRate = (tx - root._netPrev.tx) / dt
                         root.netHistory = root.netHistory
                             .concat([{ rx: root.netRxRate, tx: root.netTxRate }])
-                            .slice(-60)
+                            .slice(-20)
                     }
                 }
                 root._netPrev = { rx: rx, tx: tx, time: now }
@@ -446,18 +446,17 @@ PanelWindow {
             }
         }
 
-        // Bottom-centre: net traffic history graph
-        // Each sample = 2 bars (TX blue, RX green) scaled to window peak
+        // Above bottom-right panel: net traffic history graph
+        // Width tracks the right panel; bars grow upward from the baseline
         Canvas {
             id: netGraph
-            height: 80
+            height: 48
+            width:  bottomRight.width
             anchors {
-                bottom:      parent.bottom
-                left:        bottomLeft.right
-                right:       bottomRight.left
-                bottomMargin: root.margin
-                leftMargin:  root.margin
-                rightMargin: root.margin
+                right:        parent.right
+                bottom:       bottomRight.top
+                rightMargin:  root.margin
+                bottomMargin: 8
             }
 
             // Bar geometry
