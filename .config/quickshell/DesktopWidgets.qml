@@ -575,10 +575,13 @@ PanelWindow {
                 spacing: 6
                 topPadding: 10
                 Text {
-                    text: root.netType
-                    font.family:    root.fontCondensed
+                    visible: root.netType === "WIFI"
+                    text: root.netSignal + "%"
+                    font.family:    root.fontNormal
                     font.pixelSize: 24
-                    color: root.netType === "NO CONNECTION" ? root.colRed : root.colWhite
+                    color: root.colWhite
+                    width: 60
+                    horizontalAlignment: Text.AlignRight
                 }
                 Text {
                     visible: root.netType === "WIFI"
@@ -588,12 +591,10 @@ PanelWindow {
                     color: root.colGreen
                 }
                 Text {
-                    visible: root.netType === "WIFI"
-                    text: " " + root.netSignal + "%"
-                    font.family:    root.fontNormal
+                    text: root.netType
+                    font.family:    root.fontCondensed
                     font.pixelSize: 24
-                    color: root.colWhite
-                    width: 60
+                    color: root.netType === "NO CONNECTION" ? root.colRed : root.colWhite
                 }
             }
 
@@ -602,10 +603,12 @@ PanelWindow {
                 anchors.right: parent.right
                 spacing: 6
                 Text {
-                    text: "INT"
-                    font.family:   root.fontCondensed
+                    text: root.batIntPct + "%"
+                    font.family:   root.fontNormal
                     font.pixelSize: 24
                     color: root.colWhite
+                    width: 60
+                    horizontalAlignment: Text.AlignRight
                 }
                 Text {
                     text: root.barStrR(root.batIntPct)
@@ -614,11 +617,10 @@ PanelWindow {
                     color: root.batColor(root.batIntPct, root.batIntCharging)
                 }
                 Text {
-                    text: " " + root.batIntPct + "%"
-                    font.family:   root.fontNormal
+                    text: "INT"
+                    font.family:   root.fontCondensed
                     font.pixelSize: 24
                     color: root.colWhite
-                    width: 60
                 }
             }
 
@@ -628,10 +630,12 @@ PanelWindow {
                 spacing: 6
                 visible: root.batExtPresent
                 Text {
-                    text: "EXT"
-                    font.family:   root.fontCondensed
+                    text: root.batExtPct + "%"
+                    font.family:   root.fontNormal
                     font.pixelSize: 24
                     color: root.colWhite
+                    width: 60
+                    horizontalAlignment: Text.AlignRight
                 }
                 Text {
                     text: root.barStrR(root.batExtPct)
@@ -640,11 +644,10 @@ PanelWindow {
                     color: root.batColor(root.batExtPct, root.batExtCharging)
                 }
                 Text {
-                    text: " " + root.batExtPct + "%"
-                    font.family:   root.fontNormal
+                    text: "EXT"
+                    font.family:   root.fontCondensed
                     font.pixelSize: 24
                     color: root.colWhite
-                    width: 60
                 }
             }
         }
