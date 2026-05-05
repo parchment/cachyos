@@ -328,16 +328,20 @@ PanelWindow {
         return Math.round(bps) + " B/s"
     }
 
-    function splitBar(txRate, rxRate, txEma, rxEma) {
+    function txBarStr(txRate, txEma) {
         const half    = 6
         const ceiling = 3.0
-        const txPct = txEma > 0 ? Math.min(1, txRate / (txEma * ceiling)) : 0
-        const rxPct = rxEma > 0 ? Math.min(1, rxRate / (rxEma * ceiling)) : 0
-        const txFilled = Math.round(txPct * half)
-        const rxFilled = Math.round(rxPct * half)
-        const left  = "█".repeat(txFilled) + "░".repeat(half - txFilled)
-        const right = "░".repeat(half - rxFilled) + "█".repeat(rxFilled)
-        return left + " " + right
+        const pct    = txEma > 0 ? Math.min(1, txRate / (txEma * ceiling)) : 0
+        const filled = Math.round(pct * half)
+        return "█".repeat(filled) + "░".repeat(half - filled)
+    }
+
+    function rxBarStr(rxRate, rxEma) {
+        const half    = 6
+        const ceiling = 3.0
+        const pct    = rxEma > 0 ? Math.min(1, rxRate / (rxEma * ceiling)) : 0
+        const filled = Math.round(pct * half)
+        return "░".repeat(half - filled) + "█".repeat(filled)
     }
 
     function batColor(pct, charging) {
@@ -527,24 +531,35 @@ PanelWindow {
             }
             width: bottomRight.width
 
-            // Bar row: ↑ ████ ░░░█ ↓
+            // Bar row: ↑ ████░░ ░░░███ ↓
             Row {
                 anchors.horizontalCenter: parent.horizontalCenter
-                spacing: 6
+                spacing: 0
                 Text {
-                    text: "↑"
+                    text: "↑ "
                     font.family:    root.fontNormal
                     font.pixelSize: 24
                     color: root.colBlue
                 }
                 Text {
-                    text: root.splitBar(root.netTxRate, root.netRxRate, root.txEma, root.rxEma)
+                    text: root.txBarStr(root.netTxRate, root.txEma)
                     font.family:    root.fontNormal
                     font.pixelSize: 24
-                    color: root.colWhite
+                    color: root.colBlue
                 }
                 Text {
-                    text: "↓"
+                    text: " "
+                    font.family:    root.fontNormal
+                    font.pixelSize: 24
+                }
+                Text {
+                    text: root.rxBarStr(root.netRxRate, root.rxEma)
+                    font.family:    root.fontNormal
+                    font.pixelSize: 24
+                    color: root.colGreen
+                }
+                Text {
+                    text: " ↓"
                     font.family:    root.fontNormal
                     font.pixelSize: 24
                     color: root.colGreen
