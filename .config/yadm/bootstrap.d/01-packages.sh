@@ -73,6 +73,9 @@ install_pkg rustup
 install_pkg cliphist
 install_pkg wl-clipboard
 
+# Fonts
+install_pkg ttf-jetbrains-mono-nerd
+
 # Dotfiles + git
 install_pkg yadm
 install_pkg git-lfs

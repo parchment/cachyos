@@ -7,7 +7,7 @@ margin = 8
 padding = 8,12
 border-size = 1
 border-radius = 4
-font = Iosevka Vixelated 10
+font = JetBrains Mono 10
 
 [urgency=critical]
 default-timeout = 0

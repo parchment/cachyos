@@ -13,7 +13,7 @@ QtObject {
     readonly property string colRed:      "#ff6188"
 
     // ── Font ───────────────────────────────────────────────────────────────
-    readonly property string fontNormal: "Iosevka Vixelated"
+    readonly property string fontNormal: "JetBrains Mono"
 
     // ── Font sizes ─────────────────────────────────────────────────────────
     readonly property int fontSizeSm: 14   // secondary / subscript

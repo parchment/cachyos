@@ -81,8 +81,6 @@ No app launcher. No status bar. No dock. No file manager GUI. No Bluetooth GUI.
 │   ├── hyprland.conf
 │   ├── hyprlock.conf
 │   └── hypridle.conf
-├── iosevka/
-│   └── private-build-plans.toml # Font build plan — source of truth, TTFs are derived
 ├── mako/
 │   └── config
 ├── quickshell/
@@ -99,8 +97,7 @@ No app launcher. No status bar. No dock. No file manager GUI. No Bluetooth GUI.
     │   ├── 05-hyprland.sh       # Config dir, cursor theme
     │   ├── 06-services.sh       # systemd services, TLP config, Tailscale
     │   ├── 07-keyring.sh        # PAM integration for gnome-keyring + SDDM
-    │   ├── 08-sddm.sh           # SDDM config, enable service
-    │   └── 09-fonts.sh          # Build + install Iosevka Vixelated
+    │   └── 08-sddm.sh           # SDDM config, enable service
     └── ignore
 ~/.gnupg/
 └── gpg-agent.conf               # TTL config, no SSH support (handled by gnome-keyring)
@@ -135,8 +132,6 @@ Fresh machine setup. Run after `yadm clone`.
                 Runs setup_tailscale — opens browser auth URL (Firefox must be installed)
 07-keyring.sh   Appends pam_gnome_keyring lines to /etc/pam.d/sddm
 08-sddm.sh      Writes /etc/sddm.conf.d/sddm.conf, enables sddm service
-09-fonts.sh     Builds Iosevka Vixelated from source at pinned v34.4.0
-                Installs to ~/.local/share/fonts/ (user) and /usr/share/fonts/ (system, for SDDM)
 ```
 
 ### Idempotency
@@ -304,41 +299,9 @@ dim-white   #444444   labels, percentages, date line
 
 ## Typography
 
-**Iosevka Vixelated** — custom Iosevka build based on ss14 (JetBrains Mono style) with opinionated glyph variants. Two widths: Normal and Condensed.
-
-- **Normal** — terminal, editor, clock, percentages, all body text
-- **Condensed** — widget labels (CPU, RAM, INT, EXT) where horizontal space is tight
-- **Italic** — available, used sparingly
+**JetBrains Mono** (Nerd Font variant) — installed via `pacman -S ttf-jetbrains-mono-nerd`.
 
 Used system-wide: Ghostty, Helix, mako, hyprlock, Quickshell widgets, SDDM.
-
-Build plan: `~/.config/iosevka/private-build-plans.toml` — tracked in yadm.
-TTFs are derived artefacts, built during bootstrap, not stored in the repo.
-Pinned to Iosevka `v34.4.0` — glyph variant names change between releases, never float this version.
-
-Installed to two locations:
-- `~/.local/share/fonts/` — user applications
-- `/usr/share/fonts/iosevka-vixelated/` — system-wide, required for SDDM (runs as `sddm` user)
-
-### Upgrading Iosevka
-
-Before bumping the version in `09-fonts.sh`:
-1. Check release notes for variant name changes
-2. Audit every key in `private-build-plans.toml` against the new version's `data/parameters/`
-3. Test build in isolation before committing
-4. Delete `~/.local/share/fonts/IosevkaVixelated-Regular.ttf` to force rebuild on next bootstrap
-
-### Font build failure modes
-
-| Failure | Cause | Recovery |
-|---|---|---|
-| `npm not found` | `01-packages.sh` not yet run | Run packages layer first |
-| `private-build-plans.toml not found` | yadm not cloned | Run `yadm clone` first |
-| GitHub unreachable | No network | Resolve network, re-run — safe |
-| Extraction failure | Corrupt download | Re-run — temp dir cleaned by trap |
-| Build failure | Plan incompatible with pinned version | Audit variant names, fix plan |
-| No TTFs in dist/ | Family name mismatch | Verify `[buildPlans.IosevkaVixelated]` key |
-| Partial install | Interrupted copy | Re-run — marker file absent triggers full rebuild |
 
 ---
 

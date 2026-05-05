@@ -1,6 +1,6 @@
 command = /usr/bin/fish
 
-font-family = Iosevka Vixelated
+font-family = JetBrains Mono
 font-size = 13
 
 background = #000000
