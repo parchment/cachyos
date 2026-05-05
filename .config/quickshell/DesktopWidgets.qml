@@ -460,7 +460,7 @@ PanelWindow {
             }
 
             // Bar geometry
-            readonly property int barW:   5
+            readonly property int barW:   10
             readonly property int barGap: 1  // gap between TX and RX within a pair
             readonly property int pairW:  barW * 2 + barGap + 2  // +2 inter-pair gap
 
@@ -517,6 +517,7 @@ PanelWindow {
             Row {
                 anchors.right: parent.right
                 spacing: 6
+                topPadding: 10
                 Text {
                     text: root.netType
                     font.family:    root.fontCondensed
