@@ -581,6 +581,7 @@ PanelWindow {
                     font.pixelSize: 24
                     color: root.colWhite
                     horizontalAlignment: Text.AlignRight
+                    rightPadding: 10
                 }
                 Text {
                     visible: root.netType === "WIFI"
@@ -609,6 +610,7 @@ PanelWindow {
                     font.pixelSize: 24
                     color: root.colWhite
                     horizontalAlignment: Text.AlignRight
+                    rightPadding: 10
                 }
                 Text {
                     text: root.barStrR(root.batIntPct)
@@ -637,6 +639,7 @@ PanelWindow {
                     font.pixelSize: 24
                     color: root.colWhite
                     horizontalAlignment: Text.AlignRight
+                    rightPadding: 10
                 }
                 Text {
                     text: root.barStrR(root.batExtPct)
