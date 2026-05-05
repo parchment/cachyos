@@ -248,7 +248,7 @@ PanelWindow {
                 const parts = line.trim().split(/\s+/)
                 if (parts.length < 2) return
                 const raw  = parts[0]
-                const name = (raw.length > 8 ? raw.substring(0, 7) + "…" : raw).toUpperCase()
+                const name = (raw.length > 11 ? raw.substring(0, 10) + "…" : raw).toUpperCase()
                 const pct  = parseFloat(parts[1]) || 0
                 topProcsProc._lines.push({ name: name, pct: pct })
             }
@@ -383,7 +383,7 @@ PanelWindow {
                         font.family:    root.fontCondensed
                         font.pixelSize: 24
                         color: root.colWhite
-                        width: 80
+                        width: 100
                         elide: Text.ElideRight
                     }
                     Text {
@@ -412,7 +412,7 @@ PanelWindow {
                     font.family:   root.fontCondensed
                     font.pixelSize: 24
                     color: root.colWhite
-                    width: 80
+                    width: 100
                 }
                 Text {
                     text: root.barStr(root.cpuUsage)
@@ -436,7 +436,7 @@ PanelWindow {
                     font.family:   root.fontCondensed
                     font.pixelSize: 24
                     color: root.colWhite
-                    width: 80
+                    width: 100
                 }
                 Text {
                     text: root.barStr(root.ramUsage)
@@ -460,7 +460,7 @@ PanelWindow {
                     font.family:   root.fontCondensed
                     font.pixelSize: 24
                     color: root.colWhite
-                    width: 80
+                    width: 100
                 }
                 Text {
                     text: root.barStr(root.cpuTemp)
@@ -485,7 +485,7 @@ PanelWindow {
                     font.family:   root.fontCondensed
                     font.pixelSize: 24
                     color: root.colWhite
-                    width: 80
+                    width: 100
                 }
                 Text {
                     text: root.barStr(root.swapUsage)
