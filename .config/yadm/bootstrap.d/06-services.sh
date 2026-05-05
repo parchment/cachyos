@@ -65,6 +65,7 @@ fi
 # This is guaranteed by 01-packages.sh installing firefox.
 # Running on bare TTY without a browser will stall here.
 fish -c setup_tailscale
+fish -c setup_docker
 
 echo ""
 echo "┌─────────────────────────────────────────────────────────────────┐"

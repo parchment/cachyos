@@ -47,6 +47,9 @@ install_pkg sddm
 install_pkg networkmanager
 install_pkg tailscale
 
+# Containers
+install_pkg docker
+
 # Power management
 install_pkg tlp
 install_pkg tlp-rdw

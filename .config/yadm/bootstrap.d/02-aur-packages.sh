@@ -17,6 +17,9 @@ install_aur bluetuith
 # Screenshot
 install_aur grimblast-git
 
+# Docker TUI
+install_aur lazydocker
+
 echo "--- Layer 2 verification ---"
 paru -Q phinger-cursors
 echo "--- Layer 2 complete ---"
