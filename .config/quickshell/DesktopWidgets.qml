@@ -260,6 +260,34 @@ PanelWindow {
         }
     }
 
+    // Disk space — real mounts >1 GB, updated each poll
+    property var diskMounts: []   // [{ mount: string, pct: int, avail: string }, …]
+
+    Process {
+        id: diskProc
+        command: ["bash", "-c",
+            "df -BG -x tmpfs -x devtmpfs -x squashfs -x efivarfs 2>/dev/null | " +
+            "awk 'NR>1 { sz=$2; gsub(/G/,\"\",sz); avail=$4; gsub(/G/,\"\",avail); " +
+            "pct=$5; gsub(/%/,\"\",pct); if (sz+0>1) print $6, pct+0, avail+0 }'"]
+        running: false
+        property var _lines: []
+        stdout: SplitParser {
+            onRead: function(line) {
+                const parts = line.trim().split(/\s+/)
+                if (parts.length < 3) return
+                diskProc._lines.push({
+                    mount: parts[0],
+                    pct:   parseInt(parts[1]) || 0,
+                    avail: parts[2] + "G"
+                })
+            }
+        }
+        onRunningChanged: {
+            if (running) diskProc._lines = []
+            else root.diskMounts = diskProc._lines.slice()
+        }
+    }
+
     // Tailscale
     property bool tailscaleUp: false
 
@@ -290,6 +318,7 @@ PanelWindow {
             netSpeedProc.running = true
             tsProc.running       = true
             topProcsProc.running = true
+            diskProc.running     = true
         }
     }
 
@@ -319,6 +348,12 @@ PanelWindow {
     function tempColor(temp) {
         if (temp >= 80) return root.colRed
         if (temp >= 60) return root.colBlue
+        return root.colGreen
+    }
+
+    function diskColor(pct) {
+        if (pct >= 85) return root.colRed
+        if (pct >= 70) return root.colBlue
         return root.colGreen
     }
 
@@ -490,6 +525,34 @@ PanelWindow {
                     font.family:   root.fontNormal
                     font.pixelSize: 18
                     color: root.colWhite
+                }
+            }
+
+            // Disk space rows — one per real mount >1 GB
+            Repeater {
+                model: root.diskMounts
+                Row {
+                    spacing: 6
+                    Text {
+                        text: modelData.mount
+                        font.family:    root.fontCondensed
+                        font.pixelSize: 18
+                        color: root.colWhite
+                        width: 100
+                        elide: Text.ElideRight
+                    }
+                    Text {
+                        text: root.barStr(modelData.pct)
+                        font.family:    root.fontNormal
+                        font.pixelSize: 18
+                        color: root.diskColor(modelData.pct)
+                    }
+                    Text {
+                        text: " " + modelData.pct + "%  " + modelData.avail
+                        font.family:    root.fontNormal
+                        font.pixelSize: 18
+                        color: root.colWhite
+                    }
                 }
             }
 
