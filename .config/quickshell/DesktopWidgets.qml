@@ -375,7 +375,7 @@ PanelWindow {
                 id: clockDate
                 anchors.right: parent.right
                 font.family:   root.fontNormal
-                font.pixelSize: 24
+                font.pixelSize: 18
                 color: root.colWhite
             }
         }
@@ -398,7 +398,7 @@ PanelWindow {
                     Text {
                         text: modelData.name
                         font.family:    root.fontCondensed
-                        font.pixelSize: 24
+                        font.pixelSize: 18
                         color: root.colWhite
                         width: 100
                         elide: Text.ElideRight
@@ -406,13 +406,13 @@ PanelWindow {
                     Text {
                         text: root.barStr(modelData.pct)
                         font.family:    root.fontNormal
-                        font.pixelSize: 24
+                        font.pixelSize: 18
                         color: root.colBlue
                     }
                     Text {
                         text: " " + Math.round(modelData.pct) + "%"
                         font.family:    root.fontNormal
-                        font.pixelSize: 24
+                        font.pixelSize: 18
                         color: root.colWhite
                     }
                 }
@@ -427,20 +427,20 @@ PanelWindow {
                 Text {
                     text: "CPU"
                     font.family:   root.fontCondensed
-                    font.pixelSize: 24
+                    font.pixelSize: 18
                     color: root.colWhite
                     width: 100
                 }
                 Text {
                     text: root.barStr(root.cpuUsage)
                     font.family:   root.fontNormal
-                    font.pixelSize: 24
+                    font.pixelSize: 18
                     color: root.colBlue
                 }
                 Text {
                     text: " " + root.cpuUsage + "%"
                     font.family:   root.fontNormal
-                    font.pixelSize: 24
+                    font.pixelSize: 18
                     color: root.colWhite
                 }
             }
@@ -451,20 +451,20 @@ PanelWindow {
                 Text {
                     text: "RAM"
                     font.family:   root.fontCondensed
-                    font.pixelSize: 24
+                    font.pixelSize: 18
                     color: root.colWhite
                     width: 100
                 }
                 Text {
                     text: root.barStr(root.ramUsage)
                     font.family:   root.fontNormal
-                    font.pixelSize: 24
+                    font.pixelSize: 18
                     color: root.colCyan
                 }
                 Text {
                     text: " " + root.ramUsage + "%"
                     font.family:   root.fontNormal
-                    font.pixelSize: 24
+                    font.pixelSize: 18
                     color: root.colWhite
                 }
             }
@@ -475,20 +475,20 @@ PanelWindow {
                 Text {
                     text: "TMP"
                     font.family:   root.fontCondensed
-                    font.pixelSize: 24
+                    font.pixelSize: 18
                     color: root.colWhite
                     width: 100
                 }
                 Text {
                     text: root.barStr(root.cpuTemp)
                     font.family:   root.fontNormal
-                    font.pixelSize: 24
+                    font.pixelSize: 18
                     color: root.tempColor(root.cpuTemp)
                 }
                 Text {
                     text: " " + root.cpuTemp + "°C"
                     font.family:   root.fontNormal
-                    font.pixelSize: 24
+                    font.pixelSize: 18
                     color: root.colWhite
                 }
             }
@@ -500,20 +500,20 @@ PanelWindow {
                 Text {
                     text: "SWP"
                     font.family:   root.fontCondensed
-                    font.pixelSize: 24
+                    font.pixelSize: 18
                     color: root.colWhite
                     width: 100
                 }
                 Text {
                     text: root.barStr(root.swapUsage)
                     font.family:   root.fontNormal
-                    font.pixelSize: 24
+                    font.pixelSize: 18
                     color: root.colRed
                 }
                 Text {
                     text: " " + root.swapUsage + "%"
                     font.family:   root.fontNormal
-                    font.pixelSize: 24
+                    font.pixelSize: 18
                     color: root.colWhite
                 }
             }
@@ -538,30 +538,30 @@ PanelWindow {
                 Text {
                     text: "↑ "
                     font.family:    root.fontNormal
-                    font.pixelSize: 24
+                    font.pixelSize: 18
                     color: root.colBlue
                 }
                 Text {
                     text: root.txBarStr(root.netTxRate, root.txEma)
                     font.family:    root.fontNormal
-                    font.pixelSize: 24
+                    font.pixelSize: 18
                     color: root.colBlue
                 }
                 Text {
                     text: " "
                     font.family:    root.fontNormal
-                    font.pixelSize: 24
+                    font.pixelSize: 18
                 }
                 Text {
                     text: root.rxBarStr(root.netRxRate, root.rxEma)
                     font.family:    root.fontNormal
-                    font.pixelSize: 24
+                    font.pixelSize: 18
                     color: root.colGreen
                 }
                 Text {
                     text: " ↓"
                     font.family:    root.fontNormal
-                    font.pixelSize: 24
+                    font.pixelSize: 18
                     color: root.colGreen
                 }
             }
@@ -574,14 +574,14 @@ PanelWindow {
                     anchors.left: parent.left
                     text: root.netRateStr(root.netTxRate)
                     font.family:    root.fontNormal
-                    font.pixelSize: 24
+                    font.pixelSize: 18
                     color: root.colBlue
                 }
                 Text {
                     anchors.right: parent.right
                     text: root.netRateStr(root.netRxRate)
                     font.family:    root.fontNormal
-                    font.pixelSize: 24
+                    font.pixelSize: 18
                     color: root.colGreen
                 }
             }
@@ -606,7 +606,7 @@ PanelWindow {
                     visible: root.netType === "WIFI"
                     text: root.netSignal + "%"
                     font.family:    root.fontNormal
-                    font.pixelSize: 24
+                    font.pixelSize: 18
                     color: root.colWhite
                     horizontalAlignment: Text.AlignRight
                     rightPadding: 10
@@ -615,13 +615,13 @@ PanelWindow {
                     visible: root.netType === "WIFI"
                     text: root.barStrR(root.netSignal)
                     font.family:    root.fontNormal
-                    font.pixelSize: 24
+                    font.pixelSize: 18
                     color: root.colGreen
                 }
                 Text {
                     text: root.netType
                     font.family:    root.fontCondensed
-                    font.pixelSize: 24
+                    font.pixelSize: 18
                     width: 60
                     color: root.netType === "NO CONNECTION" ? root.colRed : root.colWhite
                     horizontalAlignment: Text.AlignRight
@@ -635,7 +635,7 @@ PanelWindow {
                 Text {
                     text: root.batIntPct + "%"
                     font.family:   root.fontNormal
-                    font.pixelSize: 24
+                    font.pixelSize: 18
                     color: root.colWhite
                     horizontalAlignment: Text.AlignRight
                     rightPadding: 10
@@ -643,13 +643,13 @@ PanelWindow {
                 Text {
                     text: root.barStrR(root.batIntPct)
                     font.family:   root.fontNormal
-                    font.pixelSize: 24
+                    font.pixelSize: 18
                     color: root.batColor(root.batIntPct, root.batIntCharging)
                 }
                 Text {
                     text: "INT"
                     font.family:   root.fontCondensed
-                    font.pixelSize: 24
+                    font.pixelSize: 18
                     width: 60
                     color: root.colWhite
                     horizontalAlignment: Text.AlignRight
@@ -664,7 +664,7 @@ PanelWindow {
                 Text {
                     text: root.batExtPct + "%"
                     font.family:   root.fontNormal
-                    font.pixelSize: 24
+                    font.pixelSize: 18
                     color: root.colWhite
                     horizontalAlignment: Text.AlignRight
                     rightPadding: 10
@@ -672,13 +672,13 @@ PanelWindow {
                 Text {
                     text: root.barStrR(root.batExtPct)
                     font.family:   root.fontNormal
-                    font.pixelSize: 24
+                    font.pixelSize: 18
                     color: root.batColor(root.batExtPct, root.batExtCharging)
                 }
                 Text {
                     text: "EXT"
                     font.family:   root.fontCondensed
-                    font.pixelSize: 24
+                    font.pixelSize: 18
                     width: 60
                     color: root.colWhite
                     horizontalAlignment: Text.AlignRight
