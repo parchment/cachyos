@@ -340,6 +340,7 @@ PanelWindow {
 
         // Bottom-left: CPU + RAM
         Column {
+            id: bottomLeft
             anchors {
                 bottom: parent.bottom
                 left:   parent.left
@@ -449,16 +450,18 @@ PanelWindow {
         // Each sample = 2 bars (TX blue, RX green) scaled to window peak
         Canvas {
             id: netGraph
-            width:  360
             height: 80
             anchors {
-                bottom:              parent.bottom
-                horizontalCenter:    parent.horizontalCenter
-                bottomMargin:        root.margin
+                bottom:      parent.bottom
+                left:        bottomLeft.right
+                right:       bottomRight.left
+                bottomMargin: root.margin
+                leftMargin:  root.margin
+                rightMargin: root.margin
             }
 
             // Bar geometry
-            readonly property int barW:   3
+            readonly property int barW:   5
             readonly property int barGap: 1  // gap between TX and RX within a pair
             readonly property int pairW:  barW * 2 + barGap + 2  // +2 inter-pair gap
 
@@ -503,6 +506,7 @@ PanelWindow {
 
 
         Column {
+            id: bottomRight
             anchors {
                 bottom: parent.bottom
                 right:  parent.right
@@ -510,42 +514,10 @@ PanelWindow {
             }
             spacing: 4
 
-            // Network throughput (hidden when no connection)
-            Row {
-                anchors.right: parent.right
-                spacing: 6
-                visible: root.netType !== "NO CONNECTION"
-                Text {
-                    text: "🡑"
-                    font.family:    root.fontNormal
-                    font.pixelSize: 24
-                    color: root.colBlue
-                }
-                Text {
-                    text: root.netRateStr(root.netTxRate)
-                    font.family:    root.fontCondensed
-                    font.pixelSize: 24
-                    color: root.colWhite
-                }
-                Text {
-                    text: "🡓"
-                    font.family:    root.fontNormal
-                    font.pixelSize: 24
-                    color: root.colGreen
-                }
-                Text {
-                    text: root.netRateStr(root.netRxRate)
-                    font.family:    root.fontCondensed
-                    font.pixelSize: 24
-                    color: root.colWhite
-                }
-            }
-
             // Network
             Row {
                 anchors.right: parent.right
                 spacing: 6
-                topPadding: 6
                 Text {
                     text: root.netType
                     font.family:    root.fontCondensed
