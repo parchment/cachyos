@@ -125,7 +125,7 @@ PanelWindow {
         id: batIntProc
         command: ["bash", "-c",
             "cat /sys/class/power_supply/AC/online 2>/dev/null; " +
-            "cat /sys/class/power_supply/BAT0/capacity 2>/dev/null"]
+            "cat /sys/class/power_supply/BAT1/capacity 2>/dev/null"]
         running: false
         property int lineNum: 0
         stdout: SplitParser {
@@ -142,8 +142,8 @@ PanelWindow {
         id: batExtProc
         command: ["bash", "-c",
             "cat /sys/class/power_supply/AC/online 2>/dev/null; " +
-            "[ -d /sys/class/power_supply/BAT1 ] && echo present; " +
-            "cat /sys/class/power_supply/BAT1/capacity 2>/dev/null"]
+            "[ -d /sys/class/power_supply/BAT0 ] && echo present; " +
+            "cat /sys/class/power_supply/BAT0/capacity 2>/dev/null"]
         running: false
         property int lineNum: 0
         stdout: SplitParser {
