@@ -1,0 +1,8 @@
+CpuSource 1.0 CpuSource.qml
+RamSource 1.0 RamSource.qml
+BatterySource 1.0 BatterySource.qml
+NetworkSource 1.0 NetworkSource.qml
+CpuTempSource 1.0 CpuTempSource.qml
+TopProcsSource 1.0 TopProcsSource.qml
+DiskSource 1.0 DiskSource.qml
+TailscaleSource 1.0 TailscaleSource.qml
