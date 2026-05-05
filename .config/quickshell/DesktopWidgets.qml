@@ -468,7 +468,7 @@ PanelWindow {
                     color: root.colWhite
                 }
                 Text {
-                    text: "  🡓"
+                    text: "🡓"
                     font.family:    root.fontNormal
                     font.pixelSize: 24
                     color: root.colGreen
