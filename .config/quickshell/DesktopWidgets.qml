@@ -163,7 +163,8 @@ PanelWindow {
     property real   netRxRate: 0     // bytes/sec
     property real   netTxRate: 0     // bytes/sec
     property var    _netPrev:  null  // { rx, tx, time }
-    property var    netHistory: []   // [{ rx, tx }, …] — last 60 samples
+    property real   txEma:     0     // slow EMA of TX rate for bar scaling
+    property real   rxEma:     0     // slow EMA of RX rate for bar scaling
 
     Process {
         id: netProc
@@ -208,9 +209,9 @@ PanelWindow {
                     if (dt > 0) {
                         root.netRxRate = (rx - root._netPrev.rx) / dt
                         root.netTxRate = (tx - root._netPrev.tx) / dt
-                        root.netHistory = root.netHistory
-                            .concat([{ rx: root.netRxRate, tx: root.netTxRate }])
-                            .slice(-20)
+                        const α = 0.02
+                        root.txEma = root.txEma === 0 ? root.netTxRate : α * root.netTxRate + (1 - α) * root.txEma
+                        root.rxEma = root.rxEma === 0 ? root.netRxRate : α * root.netRxRate + (1 - α) * root.rxEma
                     }
                 }
                 root._netPrev = { rx: rx, tx: tx, time: now }
@@ -325,6 +326,18 @@ PanelWindow {
         if (bps >= 1048576) return (bps / 1048576).toFixed(1) + " MB/s"
         if (bps >= 1024)    return Math.round(bps / 1024)     + " KB/s"
         return Math.round(bps) + " B/s"
+    }
+
+    function splitBar(txRate, rxRate, txEma, rxEma) {
+        const half    = 4
+        const ceiling = 3.0
+        const txPct = txEma > 0 ? Math.min(1, txRate / (txEma * ceiling)) : 0
+        const rxPct = rxEma > 0 ? Math.min(1, rxRate / (rxEma * ceiling)) : 0
+        const txFilled = Math.round(txPct * half)
+        const rxFilled = Math.round(rxPct * half)
+        const left  = "█".repeat(txFilled) + "░".repeat(half - txFilled)
+        const right = "░".repeat(half - rxFilled) + "█".repeat(rxFilled)
+        return left + " " + right
     }
 
     function batColor(pct, charging) {
@@ -502,59 +515,59 @@ PanelWindow {
             }
         }
 
-        // Above bottom-right panel: net traffic history graph
-        // Width tracks the right panel; bars grow upward from the baseline
-        Canvas {
-            id: netGraph
-            height: 48
-            width:  bottomRight.width
+        // Above bottom-right panel: split-bar net traffic widget
+        Column {
+            id: netBar
+            spacing: 2
             anchors {
                 right:        parent.right
                 bottom:       bottomRight.top
                 rightMargin:  root.margin
                 bottomMargin: 8
             }
+            width: bottomRight.width
 
-            // Bar geometry
-            readonly property int barW:   10
-            readonly property int barGap: 1  // gap between TX and RX within a pair
-            readonly property int pairW:  barW * 2 + barGap + 2  // +2 inter-pair gap
-
-            Connections {
-                target: root
-                function onNetHistoryChanged() { netGraph.requestPaint() }
+            // Bar row: ↑ ████ ░░░█ ↓
+            Row {
+                anchors.horizontalCenter: parent.horizontalCenter
+                spacing: 6
+                Text {
+                    text: "↑"
+                    font.family:    root.fontNormal
+                    font.pixelSize: 24
+                    color: root.colBlue
+                }
+                Text {
+                    text: root.splitBar(root.netTxRate, root.netRxRate, root.txEma, root.rxEma)
+                    font.family:    root.fontNormal
+                    font.pixelSize: 24
+                    color: root.colWhite
+                }
+                Text {
+                    text: "↓"
+                    font.family:    root.fontNormal
+                    font.pixelSize: 24
+                    color: root.colGreen
+                }
             }
 
-            onPaint: {
-                const ctx = getContext("2d")
-                ctx.clearRect(0, 0, width, height)
-
-                const hist = root.netHistory
-                if (hist.length === 0) return
-
-                // Dynamic max — peak of all values in the window, floored at 1 B/s
-                let peak = 1
-                for (let i = 0; i < hist.length; i++) {
-                    if (hist[i].rx > peak) peak = hist[i].rx
-                    if (hist[i].tx > peak) peak = hist[i].tx
+            // Rate label row: TX pinned left, RX pinned right
+            Item {
+                width: parent.width
+                height: 24
+                Text {
+                    anchors.left: parent.left
+                    text: root.netRateStr(root.netTxRate)
+                    font.family:    root.fontNormal
+                    font.pixelSize: 24
+                    color: root.colBlue
                 }
-
-                // Draw right-to-left so newest sample is on the right
-                const count = Math.min(hist.length, Math.floor(width / pairW))
-                for (let i = 0; i < count; i++) {
-                    const sample = hist[hist.length - 1 - i]
-                    const x = width - (i + 1) * pairW
-
-                    const txH = Math.max(1, Math.round(sample.tx / peak * height))
-                    const rxH = Math.max(1, Math.round(sample.rx / peak * height))
-
-                    // TX bar (blue)
-                    ctx.fillStyle = root.colBlue
-                    ctx.fillRect(x, height - txH, barW, txH)
-
-                    // RX bar (green)
-                    ctx.fillStyle = root.colGreen
-                    ctx.fillRect(x + barW + barGap, height - rxH, barW, rxH)
+                Text {
+                    anchors.right: parent.right
+                    text: root.netRateStr(root.netRxRate)
+                    font.family:    root.fontNormal
+                    font.pixelSize: 24
+                    color: root.colGreen
                 }
             }
         }
