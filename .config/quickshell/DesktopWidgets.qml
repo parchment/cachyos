@@ -580,7 +580,6 @@ PanelWindow {
                     font.family:    root.fontNormal
                     font.pixelSize: 24
                     color: root.colWhite
-                    width: 60
                     horizontalAlignment: Text.AlignRight
                 }
                 Text {
@@ -594,6 +593,7 @@ PanelWindow {
                     text: root.netType
                     font.family:    root.fontCondensed
                     font.pixelSize: 24
+                    width: 100
                     color: root.netType === "NO CONNECTION" ? root.colRed : root.colWhite
                 }
             }
@@ -607,7 +607,6 @@ PanelWindow {
                     font.family:   root.fontNormal
                     font.pixelSize: 24
                     color: root.colWhite
-                    width: 60
                     horizontalAlignment: Text.AlignRight
                 }
                 Text {
@@ -620,6 +619,7 @@ PanelWindow {
                     text: "INT"
                     font.family:   root.fontCondensed
                     font.pixelSize: 24
+                    width: 100
                     color: root.colWhite
                 }
             }
@@ -634,7 +634,6 @@ PanelWindow {
                     font.family:   root.fontNormal
                     font.pixelSize: 24
                     color: root.colWhite
-                    width: 60
                     horizontalAlignment: Text.AlignRight
                 }
                 Text {
@@ -647,6 +646,7 @@ PanelWindow {
                     text: "EXT"
                     font.family:   root.fontCondensed
                     font.pixelSize: 24
+                    width: 100
                     color: root.colWhite
                 }
             }
