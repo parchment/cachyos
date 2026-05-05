@@ -163,6 +163,7 @@ PanelWindow {
     property real   netRxRate: 0     // bytes/sec
     property real   netTxRate: 0     // bytes/sec
     property var    _netPrev:  null  // { rx, tx, time }
+    property var    netHistory: []   // [{ rx, tx }, …] — last 60 samples
 
     Process {
         id: netProc
@@ -207,6 +208,9 @@ PanelWindow {
                     if (dt > 0) {
                         root.netRxRate = (rx - root._netPrev.rx) / dt
                         root.netTxRate = (tx - root._netPrev.tx) / dt
+                        root.netHistory = root.netHistory
+                            .concat([{ rx: root.netRxRate, tx: root.netTxRate }])
+                            .slice(-60)
                     }
                 }
                 root._netPrev = { rx: rx, tx: tx, time: now }
@@ -441,7 +445,63 @@ PanelWindow {
             }
         }
 
-        // Bottom-right: tailscale, network, batteries
+        // Bottom-centre: net traffic history graph
+        // Each sample = 2 bars (TX blue, RX green) scaled to window peak
+        Canvas {
+            id: netGraph
+            width:  360
+            height: 80
+            anchors {
+                bottom:              parent.bottom
+                horizontalCenter:    parent.horizontalCenter
+                bottomMargin:        root.margin
+            }
+
+            // Bar geometry
+            readonly property int barW:   3
+            readonly property int barGap: 1  // gap between TX and RX within a pair
+            readonly property int pairW:  barW * 2 + barGap + 2  // +2 inter-pair gap
+
+            Connections {
+                target: root
+                function onNetHistoryChanged() { netGraph.requestPaint() }
+            }
+
+            onPaint: {
+                const ctx = getContext("2d")
+                ctx.clearRect(0, 0, width, height)
+
+                const hist = root.netHistory
+                if (hist.length === 0) return
+
+                // Dynamic max — peak of all values in the window, floored at 1 B/s
+                let peak = 1
+                for (let i = 0; i < hist.length; i++) {
+                    if (hist[i].rx > peak) peak = hist[i].rx
+                    if (hist[i].tx > peak) peak = hist[i].tx
+                }
+
+                // Draw right-to-left so newest sample is on the right
+                const count = Math.min(hist.length, Math.floor(width / pairW))
+                for (let i = 0; i < count; i++) {
+                    const sample = hist[hist.length - 1 - i]
+                    const x = width - (i + 1) * pairW
+
+                    const txH = Math.max(1, Math.round(sample.tx / peak * height))
+                    const rxH = Math.max(1, Math.round(sample.rx / peak * height))
+
+                    // TX bar (blue)
+                    ctx.fillStyle = root.colBlue
+                    ctx.fillRect(x, height - txH, barW, txH)
+
+                    // RX bar (green)
+                    ctx.fillStyle = root.colGreen
+                    ctx.fillRect(x + barW + barGap, height - rxH, barW, rxH)
+                }
+            }
+        }
+
+
         Column {
             anchors {
                 bottom: parent.bottom
