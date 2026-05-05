@@ -235,6 +235,30 @@ PanelWindow {
         }
     }
 
+    // Top-5 processes by CPU
+    property var cpuTopProcs: []
+
+    Process {
+        id: topProcsProc
+        command: ["bash", "-c", "ps -eo comm,%cpu --sort=-%cpu --no-headers | head -5"]
+        running: false
+        property var _lines: []
+        stdout: SplitParser {
+            onRead: function(line) {
+                const parts = line.trim().split(/\s+/)
+                if (parts.length < 2) return
+                const raw  = parts[0]
+                const name = raw.length > 8 ? raw.substring(0, 7) + "…" : raw
+                const pct  = parseFloat(parts[1]) || 0
+                topProcsProc._lines.push({ name: name, pct: pct })
+            }
+        }
+        onRunningChanged: {
+            if (running) topProcsProc._lines = []
+            else root.cpuTopProcs = topProcsProc._lines.slice()
+        }
+    }
+
     // Tailscale
     property bool tailscaleUp: false
 
@@ -264,6 +288,7 @@ PanelWindow {
             netProc.running      = true
             netSpeedProc.running = true
             tsProc.running       = true
+            topProcsProc.running = true
         }
     }
 
@@ -347,6 +372,37 @@ PanelWindow {
                 margins: root.margin
             }
             spacing: 4
+
+            // Top-5 CPU processes
+            Repeater {
+                model: root.cpuTopProcs
+                Row {
+                    spacing: 6
+                    Text {
+                        text: modelData.name
+                        font.family:    root.fontCondensed
+                        font.pixelSize: 24
+                        color: root.colWhite
+                        width: 80
+                        elide: Text.ElideRight
+                    }
+                    Text {
+                        text: root.barStr(modelData.pct)
+                        font.family:    root.fontNormal
+                        font.pixelSize: 24
+                        color: root.colBlue
+                    }
+                    Text {
+                        text: " " + Math.round(modelData.pct) + "%"
+                        font.family:    root.fontNormal
+                        font.pixelSize: 24
+                        color: root.colWhite
+                    }
+                }
+            }
+
+            // Spacer between process list and system stats
+            Item { width: 1; height: 8 }
 
             // CPU row
             Row {
