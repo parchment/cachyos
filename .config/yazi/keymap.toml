@@ -1,0 +1,5 @@
+[mgr]
+"<Down>" = "arrow_down"
+"<Up>" = "arrow_up"
+j = "arrow_down"
+k = "arrow_up"

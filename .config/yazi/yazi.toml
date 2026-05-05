@@ -1,0 +1,10 @@
+[mgr]
+ratio = [0, 1, 3]
+show_hidden = true
+sort_by = "alphabetical"
+sort_dir_first = true
+sort_reverse = false
+
+[preview]
+max_height = 1024
+max_width = 1024
