@@ -222,6 +222,8 @@ Set in `hyprland.conf` so they apply to all child processes regardless of launch
 | `SUPER + B` | Firefox |
 | `SUPER + Y` | yazi (in Ghostty) |
 | `SUPER + T` | bluetuith (in Ghostty) |
+| `SUPER + E` | Helix in `~/Documents` |
+| `SUPER + K` | lazydocker |
 | `SUPER + D` | Toggle desktop (fade all windows, consume keypresses until `ESC` or `SUPER+D`) |
 
 ### Session

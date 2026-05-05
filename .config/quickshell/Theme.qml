@@ -18,7 +18,7 @@ QtObject {
     // ── Font sizes ─────────────────────────────────────────────────────────
     readonly property int fontSizeSm: 14   // secondary / subscript
     readonly property int fontSizeMd: 18   // primary body text
-    readonly property int fontSizeLg: 48   // clock time
+    readonly property int fontSizeLg: 64   // clock time
 
     // ── Spacers ────────────────────────────────────────────────────────────
     readonly property int spacerSm: 4      // tight row/column spacing
