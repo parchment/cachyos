@@ -1,18 +1,23 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-SDDM_CONF_DIR="/etc/sddm.conf.d"
-SDDM_CONF="$SDDM_CONF_DIR/sddm.conf"
+SDDM_CONF="/etc/sddm.conf"
+SDDM_THEME_SRC="$HOME/.local/share/sddm/themes/vixelated"
+SDDM_THEME_DEST="/usr/share/sddm/themes/vixelated"
 
-sudo mkdir -p "$SDDM_CONF_DIR"
+# Deploy theme
+sudo mkdir -p "$SDDM_THEME_DEST"
+sudo cp -r "$SDDM_THEME_SRC/." "$SDDM_THEME_DEST/"
+echo "→ Deployed theme to $SDDM_THEME_DEST"
 
 # Write config only if not already present with correct content
-if ! grep -q "phinger-cursors-light" "$SDDM_CONF" 2>/dev/null; then
+if ! grep -q "Current=vixelated" "$SDDM_CONF" 2>/dev/null; then
     sudo tee "$SDDM_CONF" > /dev/null <<'EOF'
 [General]
 InputMethod=
 
 [Theme]
+Current=vixelated
 CursorTheme=phinger-cursors-light
 
 [Users]
@@ -34,4 +39,5 @@ systemctl is-enabled sddm &>/dev/null || sudo systemctl enable sddm
 echo "--- Layer 8 verification ---"
 systemctl is-enabled sddm && echo "sddm: enabled" || echo "sddm: FAIL"
 [[ -f "$SDDM_CONF" ]] && echo "sddm.conf: ok" || echo "sddm.conf: MISSING"
+[[ -d "$SDDM_THEME_DEST" ]] && echo "vixelated theme: ok" || echo "vixelated theme: MISSING"
 echo "--- Layer 8 complete ---"

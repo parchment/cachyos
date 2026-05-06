@@ -1,0 +1,8 @@
+[SddmGreeterTheme]
+Name=vixelated
+Description=Vixelated Theme
+Author=victor
+Type=sddm-theme
+MainScript=Main.qml
+ConfigFile=theme.conf
+QtVersion=6
