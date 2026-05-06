@@ -122,18 +122,14 @@ Rectangle {
                 anchors.right: parent.right
             }
             
-            Row {
+            Text {
+                text: Qt.formatDate(new Date(), "MMM dd yyyy").toUpperCase()
+                font.family: fontFamily
+                font.pixelSize: 16 * s
+                font.letterSpacing: 4 * s
+                color: root.fg
+                opacity: 0.6
                 anchors.right: parent.right
-                spacing: 12 * s
-                Rectangle { width: 40 * s; height: 1; color: root.gold; opacity: 0.3; anchors.verticalCenter: parent.verticalCenter }
-                Text {
-                    text: Qt.formatDate(new Date(), "MMM dd yyyy").toUpperCase()
-                    font.family: fontFamily
-                    font.pixelSize: 12 * s
-                    font.letterSpacing: 4 * s
-                    color: root.fg
-                    opacity: 0.6
-                }
             }
         }
 
@@ -226,14 +222,6 @@ Rectangle {
                         easing.type: Easing.OutExpo
                     }
                 }
-                Rectangle {
-                    anchors.right: parent.right
-                    anchors.top: parent.top
-                    anchors.bottom: parent.bottom
-                    width: 1
-                    color: root.gold
-                    opacity: 0.4
-                }
                 Column {
                     anchors.fill: parent
                     anchors.rightMargin: 15 * s
@@ -246,7 +234,7 @@ Rectangle {
                             height: 32 * s
                             property bool itemHover: uItemMa.containsMouse
                             Text {
-                                text: "✦"
+                                text: "⏹"
                                 font.pixelSize: 12 * s
                                 color: root.gold
                                 anchors.right: parent.right
@@ -401,7 +389,7 @@ Rectangle {
                 }
                 
                 Text {
-                    text: "✦"
+                    text: "⏹"
                     font.pixelSize: 14 * s
                     color: arrowMa.containsMouse ? root.gold : root.fg
                     anchors.centerIn: parent
@@ -414,7 +402,6 @@ Rectangle {
                     border.color: root.gold
                     border.width: 1
                     opacity: 0.2
-                    rotation: 45
                 }
                 
                 MouseArea {
@@ -480,14 +467,6 @@ Rectangle {
                         duration: 400
                         easing.type: Easing.OutExpo
                     }
-                }
-                Rectangle {
-                    anchors.left: parent.left
-                    anchors.top: parent.top
-                    anchors.bottom: parent.bottom
-                    width: 1
-                    color: root.gold
-                    opacity: 0.4
                 }
                 Column {
                     anchors.fill: parent

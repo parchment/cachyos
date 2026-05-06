@@ -16,24 +16,49 @@ Column {
         repeat: true
         triggeredOnStart: true
         onTriggered: {
-            clockTime.text = Qt.formatTime(new Date(), "HH:mm")
-            clockDate.text = Qt.formatDate(new Date(), "ddd · d MMM")
+            clockHH.text  = Qt.formatTime(new Date(), "HH")
+            clockMM.text  = Qt.formatTime(new Date(), "mm")
+            clockDay.text = Qt.formatDate(new Date(), "dddd").toUpperCase()
+            clockDate.text = Qt.formatDate(new Date(), "MMM dd yyyy").toUpperCase()
+        }
+    }
+
+    Row {
+        anchors.right: parent.right
+        spacing: 8
+
+        Text {
+            id: clockHH
+            font.family:    Theme.fontNormal
+            font.pixelSize: Theme.fontSizeLg
+            color: Theme.colWhite
+        }
+
+        Text {
+            id: clockMM
+            font.family:    Theme.fontNormal
+            font.pixelSize: Theme.fontSizeLg
+            color: Theme.colWhite
         }
     }
 
     Text {
-        id: clockTime
+        id: clockDay
         anchors.right: parent.right
         font.family:    Theme.fontNormal
-        font.pixelSize: Theme.fontSizeLg
+        font.pixelSize: Theme.fontSizeSm
+        font.letterSpacing: 8
         color: Theme.colWhite
+        opacity: 0.8
     }
 
     Text {
         id: clockDate
         anchors.right: parent.right
         font.family:    Theme.fontNormal
-        font.pixelSize: Theme.fontSizeMd
+        font.pixelSize: Theme.fontSizeSm
+        font.letterSpacing: 4
         color: Theme.colWhite
+        opacity: 0.6
     }
 }
