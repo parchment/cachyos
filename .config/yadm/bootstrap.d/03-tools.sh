@@ -25,5 +25,5 @@ cargo --version
 node --version
 pnpm --version
 lazygit --version
-claude --version
+"$HOME/.local/bin/claude" --version
 echo "--- Layer 3 complete ---"
