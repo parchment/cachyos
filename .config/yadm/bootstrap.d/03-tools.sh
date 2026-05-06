@@ -8,6 +8,11 @@ install_pkg() {
 install_pkg lazygit
 install_pkg yazi
 
+# Claude CLI
+if ! command -v claude &>/dev/null; then
+    curl -fsSL https://claude.ai/install.sh | bash
+fi
+
 # Rust stable toolchain
 rustup default stable 2>/dev/null || true
 
@@ -20,4 +25,5 @@ cargo --version
 node --version
 pnpm --version
 lazygit --version
+claude --version
 echo "--- Layer 3 complete ---"
