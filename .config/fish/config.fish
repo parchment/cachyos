@@ -1,6 +1,9 @@
 # Suppress greeting
 set fish_greeting
 
+# Local binaries
+fish_add_path "$HOME/.local/bin"
+
 # zoxide — must be in config.fish (not conf.d) to load after PATH is set
 zoxide init fish | source
 

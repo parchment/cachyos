@@ -9,7 +9,7 @@ install_pkg lazygit
 install_pkg yazi
 
 # Claude CLI
-if ! command -v claude &>/dev/null; then
+if [ ! -f "$HOME/.local/bin/claude" ]; then
     curl -fsSL https://claude.ai/install.sh | bash
 fi
 
