@@ -1,15 +1,15 @@
 .pragma library
 
-// Left-filled 8-char block bar  e.g. ████░░░░
+// Left-filled 10-char block bar  e.g. ██████████░░░░░░░░░░
 function barStr(pct) {
-    const filled = Math.round(pct / 100 * 8)
-    return "█".repeat(filled) + "░".repeat(8 - filled)
+    const filled = Math.round(pct / 100 * 10)
+    return "█".repeat(filled) + "░".repeat(10 - filled)
 }
 
-// Right-filled 8-char block bar  e.g. ░░░░████
+// Right-filled 10-char block bar  e.g. ░░░░░░░░░░██████████
 function barStrR(pct) {
-    const filled = Math.round(pct / 100 * 8)
-    return "░".repeat(8 - filled) + "█".repeat(filled)
+    const filled = Math.round(pct / 100 * 10)
+    return "░".repeat(10 - filled) + "█".repeat(filled)
 }
 
 // Left-fill bar of `width` chars from a 0..1 fraction  e.g. ████░░
