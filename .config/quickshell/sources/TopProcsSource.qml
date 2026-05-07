@@ -18,7 +18,7 @@ QtObject {
                 const parts = line.trim().split(/\s+/)
                 if (parts.length < 3) return
                 const raw  = parts[0]
-                const name = (raw.length > 16 ? raw.substring(0, 15) + "…" : raw).toUpperCase()
+                const name = (raw.length > 21 ? raw.substring(0, 20) + "…" : raw).toUpperCase()
                 const cpu  = parseFloat(parts[1]) || 0
                 const ram  = parseFloat(parts[2]) || 0
                 proc._lines.push({ name: name, cpu: cpu, ram: ram })
