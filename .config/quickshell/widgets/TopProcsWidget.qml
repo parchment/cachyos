@@ -13,7 +13,6 @@ Column {
         model: root.topProcsSource.topProcs
         Column {
             spacing: 2
-            width: root.width
             Text {
                 text:                modelData.name
                 font.family:         Theme.fontNormal
@@ -26,13 +25,13 @@ Column {
                 anchors.right: parent.right
                 spacing: 0
                 Text {
-                    text:           Math.round(modelData.cpu) + "% "
+                    text:           String(Math.round(modelData.cpu)).padStart(3) + "% "
                     font.family:    Theme.fontNormal
                     font.pixelSize: Theme.fontSizeSm
                     color:          Theme.colBlue
                 }
                 Text {
-                    text:           modelData.ram.toFixed(1) + "%  "
+                    text:           modelData.ram.toFixed(1).padStart(5) + "%  "
                     font.family:    Theme.fontNormal
                     font.pixelSize: Theme.fontSizeSm
                     color:          Theme.colCyan
