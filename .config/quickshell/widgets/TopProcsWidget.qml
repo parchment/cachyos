@@ -25,10 +25,16 @@ Column {
                 anchors.right: parent.right
                 spacing: 0
                 Text {
-                    text:           Math.round(modelData.cpu) + "% · " + modelData.ram.toFixed(1) + "%  "
+                    text:           Math.round(modelData.cpu) + "% · "
                     font.family:    Theme.fontNormal
-                    font.pixelSize: Theme.fontSizeMd
+                    font.pixelSize: Theme.fontSizeSm
                     color:          Theme.colBlue
+                }
+                Text {
+                    text:           modelData.ram.toFixed(1) + "%  "
+                    font.family:    Theme.fontNormal
+                    font.pixelSize: Theme.fontSizeSm
+                    color:          Theme.colCyan
                 }
                 // CPU: scale ceil 50% → full bar; RAM: scale ceil 5% → full bar
                 SplitBarWidget {
