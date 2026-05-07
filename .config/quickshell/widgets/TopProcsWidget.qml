@@ -18,7 +18,8 @@ Column {
                 font.family:         Theme.fontNormal
                 font.pixelSize:      Theme.fontSizeMd
                 color:               Theme.colWhite
-                anchors.right:       parent.right
+                width:               Theme.labelWidthMd
+                elide:               Text.ElideRight
                 horizontalAlignment: Text.AlignRight
             }
             Row {
