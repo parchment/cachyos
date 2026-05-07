@@ -10,6 +10,7 @@ QtObject {
     readonly property string colCyan:     "#ab9df2"
     readonly property string colDimCyan:  "#524a73"
     readonly property string colGreen:    "#a9dc76"
+    readonly property string colYellow:   "#ffd866"
     readonly property string colRed:      "#ff6188"
 
     // ── Font ───────────────────────────────────────────────────────────────

@@ -56,13 +56,40 @@ Column {
             text: Helpers.barStr(root.cpuSource.cpuUsage)
             font.family:    Theme.fontNormal
             font.pixelSize: Theme.fontSizeMd
-            color: Theme.colBlue
+            color: Helpers.cpuColor(root.cpuSource.cpuUsage, Theme)
         }
         Text {
             text: " " + root.cpuSource.cpuUsage + "%"
             font.family:    Theme.fontNormal
             font.pixelSize: Theme.fontSizeMd
             color: Theme.colWhite
+        }
+    }
+
+    // Top-3 hottest cores
+    Repeater {
+        model: root.cpuSource.topCores
+        Row {
+            spacing: 6
+            Text {
+                text: "C" + modelData.index
+                font.family:    Theme.fontNormal
+                font.pixelSize: Theme.fontSizeMd
+                color: Theme.colWhite
+                width: Theme.labelWidthMd
+            }
+            Text {
+                text: Helpers.barStr(modelData.pct)
+                font.family:    Theme.fontNormal
+                font.pixelSize: Theme.fontSizeMd
+                color: Helpers.cpuColor(modelData.pct, Theme)
+            }
+            Text {
+                text: " " + modelData.pct + "%"
+                font.family:    Theme.fontNormal
+                font.pixelSize: Theme.fontSizeMd
+                color: Theme.colWhite
+            }
         }
     }
 

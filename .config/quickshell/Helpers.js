@@ -47,6 +47,13 @@ function diskColor(pct, theme) {
     return theme.colGreen
 }
 
+// Colour for CPU usage percentage (pass Theme singleton)
+function cpuColor(pct, theme) {
+    if (pct >= 80) return theme.colRed
+    if (pct >= 50) return theme.colYellow
+    return theme.colGreen
+}
+
 // Colour for battery (pass Theme singleton)
 function batColor(pct, charging, theme) {
     if (charging)  return theme.colBlue
