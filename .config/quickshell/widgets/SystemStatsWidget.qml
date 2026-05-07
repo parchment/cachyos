@@ -12,30 +12,36 @@ Column {
     required property var topProcsSource
     required property var diskSource
 
-    // Top-5 CPU processes
+    // Top-5 CPU+RAM processes
     Repeater {
-        model: root.topProcsSource.cpuTopProcs
-        Row {
-            spacing: 6
+        model: root.topProcsSource.topProcs
+        Column {
+            spacing: 2
             Text {
                 text: modelData.name
                 font.family:    Theme.fontNormal
                 font.pixelSize: Theme.fontSizeMd
                 color: Theme.colWhite
-                width: Theme.labelWidthMd
-                elide: Text.ElideRight
             }
-            Text {
-                text: Helpers.barStr(modelData.pct)
-                font.family:    Theme.fontNormal
-                font.pixelSize: Theme.fontSizeMd
-                color: Theme.colBlue
-            }
-            Text {
-                text: " " + Math.round(modelData.pct) + "%"
-                font.family:    Theme.fontNormal
-                font.pixelSize: Theme.fontSizeMd
-                color: Theme.colWhite
+            Row {
+                spacing: 0
+                // CPU: scale ceil 50% → full bar; RAM: scale ceil 5% → full bar
+                SplitBarWidget {
+                    leftFrac:  Math.min(1, modelData.cpu / 50)
+                    rightFrac: Math.min(1, modelData.ram / 5)
+                }
+                Text {
+                    text: "  " + Math.round(modelData.cpu) + "%"
+                    font.family:    Theme.fontNormal
+                    font.pixelSize: Theme.fontSizeMd
+                    color: Theme.colBlue
+                }
+                Text {
+                    text: " · " + modelData.ram.toFixed(1) + "%"
+                    font.family:    Theme.fontNormal
+                    font.pixelSize: Theme.fontSizeMd
+                    color: Theme.colCyan
+                }
             }
         }
     }

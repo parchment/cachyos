@@ -18,22 +18,11 @@ Column {
             font.pixelSize: Theme.fontSizeMd
             color: Theme.colBlue
         }
-        Text {
-            text: Helpers.txBarStr(root.netSource.netTxRate, root.netSource.txEma)
-            font.family:    Theme.fontNormal
-            font.pixelSize: Theme.fontSizeMd
-            color: Theme.colBlue
-        }
-        Text {
-            text: " "
-            font.family:    Theme.fontNormal
-            font.pixelSize: Theme.fontSizeMd
-        }
-        Text {
-            text: Helpers.rxBarStr(root.netSource.netRxRate, root.netSource.rxEma)
-            font.family:    Theme.fontNormal
-            font.pixelSize: Theme.fontSizeMd
-            color: Theme.colGreen
+        SplitBarWidget {
+            leftFrac:  root.netSource.txEma > 0 ? Math.min(1, root.netSource.netTxRate / (root.netSource.txEma * 3.0)) : 0
+            rightFrac: root.netSource.rxEma > 0 ? Math.min(1, root.netSource.netRxRate / (root.netSource.rxEma * 3.0)) : 0
+            leftColor:  Theme.colBlue
+            rightColor: Theme.colGreen
         }
         Text {
             text: " ↓"

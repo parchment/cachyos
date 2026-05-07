@@ -12,18 +12,16 @@ function barStrR(pct) {
     return "░".repeat(8 - filled) + "█".repeat(filled)
 }
 
-// 6-char TX bar scaled relative to the running EMA ceiling
-function txBarStr(txRate, txEma) {
-    const pct    = txEma > 0 ? Math.min(1, txRate / (txEma * 3.0)) : 0
-    const filled = Math.round(pct * 6)
-    return "█".repeat(filled) + "░".repeat(6 - filled)
+// Left-fill bar of `width` chars from a 0..1 fraction  e.g. ████░░
+function splitLeftStr(frac, width) {
+    const filled = Math.round(Math.min(1, Math.max(0, frac)) * width)
+    return "█".repeat(filled) + "░".repeat(width - filled)
 }
 
-// 6-char RX bar scaled relative to the running EMA ceiling
-function rxBarStr(rxRate, rxEma) {
-    const pct    = rxEma > 0 ? Math.min(1, rxRate / (rxEma * 3.0)) : 0
-    const filled = Math.round(pct * 6)
-    return "░".repeat(6 - filled) + "█".repeat(filled)
+// Right-fill bar of `width` chars from a 0..1 fraction  e.g. ░░████
+function splitRightStr(frac, width) {
+    const filled = Math.round(Math.min(1, Math.max(0, frac)) * width)
+    return "░".repeat(width - filled) + "█".repeat(filled)
 }
 
 // Bytes-per-second → human-readable string
