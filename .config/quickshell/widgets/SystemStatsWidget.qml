@@ -56,7 +56,7 @@ Column {
             font.family:    Theme.fontNormal
             font.pixelSize: Theme.fontSizeMd
             color: Theme.colWhite
-            width: Theme.labelWidthMd
+            width: Theme.labelWidthSm
         }
         Text {
             text: Helpers.barStr(root.cpuSource.cpuUsage)
@@ -82,7 +82,7 @@ Column {
                 font.family:    Theme.fontNormal
                 font.pixelSize: Theme.fontSizeMd
                 color: Theme.colWhite
-                width: Theme.labelWidthMd
+                width: Theme.labelWidthSm
             }
             Text {
                 text: Helpers.barStr(modelData.pct)
@@ -107,7 +107,7 @@ Column {
             font.family:    Theme.fontNormal
             font.pixelSize: Theme.fontSizeMd
             color: Theme.colWhite
-            width: Theme.labelWidthMd
+            width: Theme.labelWidthSm
         }
         Text {
             text: Helpers.barStr(root.ramSource.ramUsage)
@@ -131,7 +131,7 @@ Column {
             font.family:    Theme.fontNormal
             font.pixelSize: Theme.fontSizeMd
             color: Theme.colWhite
-            width: Theme.labelWidthMd
+            width: Theme.labelWidthSm
         }
         Text {
             text: Helpers.barStr(root.tempSource.cpuTemp)
@@ -152,13 +152,13 @@ Column {
         model: root.diskSource.diskMounts
         Row {
             spacing: 6
-            topPadding: Theme.spacerMd + 2
+            topPadding: Theme.spacerSm + 2
             Text {
                 text: modelData.mount
                 font.family:    Theme.fontNormal
                 font.pixelSize: Theme.fontSizeMd
                 color: Theme.colWhite
-                width: Theme.labelWidthMd
+                width: Theme.labelWidthSm
                 elide: Text.ElideRight
             }
             Text {
@@ -185,7 +185,7 @@ Column {
             font.family:    Theme.fontNormal
             font.pixelSize: Theme.fontSizeMd
             color: Theme.colWhite
-            width: Theme.labelWidthMd
+            width: Theme.labelWidthSm
         }
         Text {
             text: Helpers.barStr(root.ramSource.swapUsage)
