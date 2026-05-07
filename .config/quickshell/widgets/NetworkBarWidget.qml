@@ -10,15 +10,17 @@ Column {
 
     // Bar row: ████░░ ░░░███  (flush, no arrows — they live on the label row)
     SplitBarWidget {
+        id: bar
+        barWidth:  Theme.barWidthSplit
         leftFrac:  root.netSource.txEma > 0 ? Math.min(1, root.netSource.netTxRate / (root.netSource.txEma * 3.0)) : 0
         rightFrac: root.netSource.rxEma > 0 ? Math.min(1, root.netSource.netRxRate / (root.netSource.rxEma * 3.0)) : 0
         leftColor:  Theme.colBlue
         rightColor: Theme.colGreen
     }
 
-    // Rate label row: ↑ TX pinned left, RX ↓ pinned right
+    // Rate label row: ↑ TX pinned left, RX ↓ pinned right — same width as bar
     Item {
-        width: parent.width
+        width: bar.width
         height: 24
         Text {
             anchors.left: parent.left

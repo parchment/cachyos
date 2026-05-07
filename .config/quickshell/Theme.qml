@@ -29,6 +29,9 @@ QtObject {
     readonly property int labelWidthSm: 60   // "INT", "EXT", connection type
     readonly property int labelWidthMd: 100  // proc names, mount paths
 
+    // ── Bar widths ─────────────────────────────────────────────────────────
+    readonly property int barWidthSplit: 10  // chars per half of a SplitBarWidget
+
     // ── Layout ─────────────────────────────────────────────────────────────
     readonly property int margin: 24
 }

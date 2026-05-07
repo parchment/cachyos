@@ -23,6 +23,7 @@ Column {
                 spacing: 0
                 // CPU: scale ceil 50% → full bar; RAM: scale ceil 5% → full bar
                 SplitBarWidget {
+                    barWidth:  Theme.barWidthSplit
                     leftFrac:  Math.min(1, modelData.cpu / 50)
                     rightFrac: Math.min(1, modelData.ram / 5)
                 }
