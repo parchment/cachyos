@@ -19,6 +19,7 @@ Column {
                 font.pixelSize:      Theme.fontSizeMd
                 color:               Theme.colWhite
                 width:               Theme.labelWidthMd
+                anchors.right:       parent.right
                 elide:               Text.ElideRight
                 horizontalAlignment: Text.AlignRight
             }
