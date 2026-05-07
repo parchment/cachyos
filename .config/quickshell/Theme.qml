@@ -17,8 +17,8 @@ QtObject {
     readonly property string fontNormal: "JetBrains Mono"
 
     // ── Font sizes ─────────────────────────────────────────────────────────
-    readonly property int fontSizeSm: 14   // secondary / subscript
-    readonly property int fontSizeMd: 18   // primary body text
+    readonly property int fontSizeSm: 12   // secondary / subscript
+    readonly property int fontSizeMd: 16   // primary body text
     readonly property int fontSizeLg: 64   // clock time
 
     // ── Spacers ────────────────────────────────────────────────────────────
