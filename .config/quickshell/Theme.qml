@@ -17,8 +17,8 @@ QtObject {
     readonly property string fontNormal: "JetBrains Mono"
 
     // ── Font sizes ─────────────────────────────────────────────────────────
-    readonly property int fontSizeSm: 15   // secondary / subscript
-    readonly property int fontSizeMd: 17   // primary body text
+    readonly property int fontSizeSm: 16   // secondary / subscript
+    readonly property int fontSizeMd: 18   // primary body text
     readonly property int fontSizeLg: 64   // clock time
 
     // ── Spacers ────────────────────────────────────────────────────────────
@@ -27,7 +27,7 @@ QtObject {
 
     // ── Label widths ───────────────────────────────────────────────────────
     readonly property int labelWidthSm: 60   // "INT", "EXT", connection type
-    readonly property int labelWidthMd: 100  // proc names, mount paths
+    readonly property int labelWidthMd: 120  // proc names, mount paths
 
     // ── Bar widths ─────────────────────────────────────────────────────────
     readonly property int barWidthSplit: 10  // chars per half of a SplitBarWidget
