@@ -1,5 +1,6 @@
 ClockWidget 1.0 ClockWidget.qml
 SplitBarWidget 1.0 SplitBarWidget.qml
-SystemStatsWidget 1.0 SystemStatsWidget.qml
+TopProcsWidget 1.0 TopProcsWidget.qml
+SysMetricsWidget 1.0 SysMetricsWidget.qml
 NetworkBarWidget 1.0 NetworkBarWidget.qml
 NetworkStatusWidget 1.0 NetworkStatusWidget.qml

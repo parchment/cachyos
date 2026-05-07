@@ -13,7 +13,6 @@ Column {
     Row {
         anchors.right: parent.right
         spacing: 6
-        topPadding: Theme.spacerMd + 2
         Text {
             visible: root.netSource.netType === "WIFI"
             text: root.netSource.netSignal + "%"
@@ -39,6 +38,8 @@ Column {
             horizontalAlignment: Text.AlignRight
         }
     }
+
+    Item { width: 1; height: Theme.spacerMd }
 
     // INT battery
     Row {

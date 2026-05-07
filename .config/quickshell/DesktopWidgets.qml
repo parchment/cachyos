@@ -2,17 +2,27 @@
 //
 // Layout (all edges have 24px margin):
 //
-//   ┌───────────────────────────────────────────────┐
-//   │                                      12:47    │
-//   │                                 Mon · 3 May   │
-//   │                                               │
-//   │  CPU  ████████░░░░  52%   ◈ tailscale         │
-//   │  RAM  █████░░░░░░░  31%   ▼ wlan0  ████  87%  │
-//   │  TMP  ██████░░░░░░  72°C  ▲ 1.2 MB/s          │
-//   │  SWP  ██░░░░░░░░░░   8%   ▼ 340 KB/s           │
-//   │                           ▮ INT  ████████ 78% │
-//   │                           ▮ EXT  ████░░░░ 43% │
-//   └───────────────────────────────────────────────┘
+//   ┌──────────────────────────────────────────────────────────────┐
+//   │                                                    12:47     │
+//   │                                               Mon · 3 May   │
+//   │                                                              │
+//   │  ↑ ████░░░░ ░░░░████ ↓     52%  ░░████████  CPU            │
+//   │  1.2 MB/s      340 KB/s     31%  ░░░█████░░  C3             │
+//   │                             18%  ░░░░░███░░  C7             │
+//   │  firefox                                                     │
+//   │   ████░░ ░░░███  12% · 2.1%  31%  ░░░█████░░  RAM          │
+//   │  code                         8%  ░░░░░░██░░  SWP          │
+//   │   ███░░░ ░░░░██   8% · 0.9%                                 │
+//   │  ...                         72°C ░░█████░░  TMP            │
+//   │                                                              │
+//   │                              64%  ░░████████  /             │
+//   │                              41%  ░░░████░░░  /home         │
+//   │                                                              │
+//   │                              87%  ░░████████  wlan0         │
+//   │                                                              │
+//   │                              78%  ░░████████  INT           │
+//   │                              43%  ░░░████░░░  EXT           │
+//   └──────────────────────────────────────────────────────────────┘
 
 import QtQuick
 import Quickshell
@@ -68,18 +78,25 @@ PanelWindow {
             }
         }
 
-        SystemStatsWidget {
-            id: sysStats
+        TopProcsWidget {
+            id: topProcsWgt
             anchors {
                 bottom:  parent.bottom
                 left:    parent.left
                 margins: Theme.margin
             }
-            cpuSource:      cpu
-            ramSource:      ram
-            tempSource:     temp
             topProcsSource: topProcs
-            diskSource:     disk
+        }
+
+        NetworkBarWidget {
+            anchors {
+                left:         parent.left
+                bottom:       topProcsWgt.top
+                leftMargin:   Theme.margin
+                bottomMargin: Theme.spacerMd
+            }
+            width: topProcsWgt.width
+            netSource: network
         }
 
         NetworkStatusWidget {
@@ -93,15 +110,17 @@ PanelWindow {
             batSource: battery
         }
 
-        NetworkBarWidget {
+        SysMetricsWidget {
             anchors {
                 right:        parent.right
                 bottom:       netStatus.top
                 rightMargin:  Theme.margin
                 bottomMargin: Theme.spacerMd
             }
-            width: netStatus.width
-            netSource: network
+            cpuSource:  cpu
+            ramSource:  ram
+            tempSource: temp
+            diskSource: disk
         }
     }
 }
