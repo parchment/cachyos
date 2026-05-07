@@ -13,6 +13,7 @@ Column {
         model: root.topProcsSource.topProcs
         Column {
             spacing: 2
+            width: root.width
             Text {
                 text:                modelData.name
                 font.family:         Theme.fontNormal
