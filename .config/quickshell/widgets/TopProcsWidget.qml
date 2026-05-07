@@ -14,30 +14,27 @@ Column {
         Column {
             spacing: 2
             Text {
-                text:           modelData.name
-                font.family:    Theme.fontNormal
-                font.pixelSize: Theme.fontSizeMd
-                color:          Theme.colWhite
+                text:                modelData.name
+                font.family:         Theme.fontNormal
+                font.pixelSize:      Theme.fontSizeMd
+                color:               Theme.colWhite
+                anchors.right:       parent.right
+                horizontalAlignment: Text.AlignRight
             }
             Row {
+                anchors.right: parent.right
                 spacing: 0
+                Text {
+                    text:           Math.round(modelData.cpu) + "% · " + modelData.ram.toFixed(1) + "%  "
+                    font.family:    Theme.fontNormal
+                    font.pixelSize: Theme.fontSizeMd
+                    color:          Theme.colBlue
+                }
                 // CPU: scale ceil 50% → full bar; RAM: scale ceil 5% → full bar
                 SplitBarWidget {
                     barWidth:  Theme.barWidthSplit
                     leftFrac:  Math.min(1, modelData.cpu / 50)
                     rightFrac: Math.min(1, modelData.ram / 5)
-                }
-                Text {
-                    text:           "  " + Math.round(modelData.cpu) + "%"
-                    font.family:    Theme.fontNormal
-                    font.pixelSize: Theme.fontSizeMd
-                    color:          Theme.colBlue
-                }
-                Text {
-                    text:           " · " + modelData.ram.toFixed(1) + "%"
-                    font.family:    Theme.fontNormal
-                    font.pixelSize: Theme.fontSizeMd
-                    color:          Theme.colCyan
                 }
             }
         }

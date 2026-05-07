@@ -18,23 +18,23 @@ Column {
         rightColor: Theme.colGreen
     }
 
-    // Rate label row: ↑ TX pinned left, RX ↓ pinned right — same width as bar
+    // Rate label row: RX ↓ pinned left, TX ↑ pinned right — same width as bar
     Item {
         width: bar.width
         height: 24
         Text {
             anchors.left: parent.left
-            text: "↑ " + Helpers.netRateStr(root.netSource.netTxRate)
-            font.family:    Theme.fontNormal
-            font.pixelSize: Theme.fontSizeMd
-            color: Theme.colBlue
-        }
-        Text {
-            anchors.right: parent.right
             text: Helpers.netRateStr(root.netSource.netRxRate) + " ↓"
             font.family:    Theme.fontNormal
             font.pixelSize: Theme.fontSizeMd
             color: Theme.colGreen
+        }
+        Text {
+            anchors.right: parent.right
+            text: "↑ " + Helpers.netRateStr(root.netSource.netTxRate)
+            font.family:    Theme.fontNormal
+            font.pixelSize: Theme.fontSizeMd
+            color: Theme.colBlue
         }
     }
 }
