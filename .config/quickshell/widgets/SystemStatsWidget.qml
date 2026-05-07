@@ -116,7 +116,6 @@ Column {
         model: root.diskSource.diskMounts
         Row {
             spacing: 6
-            topPadding: Theme.spacerSm + 2
             Text {
                 text: modelData.mount
                 font.family:    Theme.fontNormal
